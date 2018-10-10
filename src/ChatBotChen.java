@@ -9,8 +9,11 @@ import java.util.Scanner;
  */
 public class ChatBotChen
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
+	//emotion starts at 0, which is neutral, increases as user makes worse choice and the bot's comment will become progressively more sarcastic
 	int emotion = 0;
+
+	//gold will be a variable used throughout the adventure
+	int gold = 0;
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
