@@ -7,8 +7,7 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBotChen
-{
+public class ChatBotChen {
 	//emotion starts at 0, which is neutral, increases as user makes worse choice and the bot's comment will become progressively more sarcastic
 	int emotion = 0;
 
@@ -17,35 +16,41 @@ public class ChatBotChen
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
+	 *
 	 * @param statement the statement typed by the user
 	 */
-	public void chatLoop(String statement)
-	{
-		Scanner in = new Scanner (System.in);
-		System.out.println (getGreeting());
-
-
-		while (!statement.equals("Bye"))
-		{
-
-
-			statement = in.nextLine();
+	public void chatLoop(String statement) {
+		Scanner in = new Scanner(System.in);
+		System.out.println("insert intro");
+		//scene 1
+		System.out.println("insert scene 1 intro");
+		String[] scene1 = {"hire"};
+		while (true) {
+			statement = in.nextLine().toLowerCase();
 			//getResponse handles the user reply
-			System.out.println(getResponse(statement));
-
-
+			if (response1(statement)) {
+				break;
+			} else {
+				altResponse1(statement);
+			}
 		}
+		//scene 2
+	}
+
+	public boolean response1(String statement) {
+		String[] scene1 = {"hire"};
+		for (int i = 0; i < scene1.length; i++) {
+			if (statement.contains(scene1[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void altResponse1(String statement){
 
 	}
-	/**
-	 * Get a default greeting 	
-	 * @return a greeting
-	 */	
-	public String getGreeting()
-	{
-		return "Hi, what is up?";
-	}
-	
+
 	/**
 	 * Gives a response to a user statement
 	 * 
@@ -53,37 +58,14 @@ public class ChatBotChen
 	 *            the user statement
 	 * @return a response based on the rules given
 	 */
-	public String getResponse(String statement)
+	public String getResponse1(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "Please choose a valid action";
 		}
-
-		else if (findKeyword(statement, "no") >= 0)
-		{
-			response = "Why so negative?";
-                	emotion--;
-		}
-		
-		else if (findKeyword(statement, "levin") >= 0)
-		{
-			response = "More like LevinTheDream, amiright?";
-			emotion++;
-		}
-		else if (findKeyword(statement, "folwell") >= 0)
-		{
-			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
-			emotion++;
-		}
-		else if (findKeyword(statement, "goldman") >= 0)
-		{
-			response = "Go for the gold, man.";
-			emotion++;
-		}
-
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to", 0) >= 0)
 		{
@@ -278,7 +260,8 @@ public class ChatBotChen
 			"You don't say.",
 			"It's all boolean to me.",
 			"So, would you like to go for a walk?",
-			"Could you say that again?"
+			"Could you say that again?",
+			"Oh that's just a bunch of boolean."
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
