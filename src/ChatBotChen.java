@@ -22,15 +22,15 @@ public class ChatBotChen {
 	 */
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Hello, throughout this journey you may " + "\uD835\uDC28\uD835\uDC1B\uD835\uDC2C\uD835\uDC1E\uD835\uDC2B\uD835\uDC2F\uD835\uDC1E" + " your surroundings or check your " + "\uD835\uDC20\uD835\uDC28\uD835\uDC25\uD835\uDC1D" + " whenever you wish to.");
+		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session. Throughout this journey you may " + "\uD835\uDC28\uD835\uDC1B\uD835\uDC2C\uD835\uDC1E\uD835\uDC2B\uD835\uDC2F\uD835\uDC1E" + " your surroundings or check your " + "\uD835\uDC20\uD835\uDC28\uD835\uDC25\uD835\uDC1D" + " whenever you wish to.");
 		//scene 1
 		System.out.println("insert scene 1 intro");
-		String[] scene1 = {"hire"};
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
             String[] scene1 = {"hire"};
             String sceneAlt = "You see people.";
+
 			if (response(statement, scene1)) {
 				break;
 			} else {
@@ -50,6 +50,7 @@ public class ChatBotChen {
 	public boolean response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
 			if (statement.contains(keyword[i])) {
+				transformIWantStatement(statement,keyword[i]);
 				return true;
 			}
 		}
@@ -65,39 +66,6 @@ public class ChatBotChen {
             System.out.println(invalidAction());
         }
 	}
-
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
-	public String getResponse1(String statement)
-	{
-		String response = "";
-
-		if (statement.length() == 0)
-		{
-			response = "Please choose a valid action";
-		}
-		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
-		{
-			response = transformIWantToStatement(statement);
-		}
-		else if (findKeyword(statement, "I want",0) >= 0)
-		{
-			response = transformIWantStatement(statement);
-		}	
-		else
-		{
-			response = getRandomResponse();
-		}
-		
-		return response;
-	}
-	
 	/**
 	 * Take a statement with "I want to <something>." and transform it into 
 	 * "Why do you want to <something>?"
@@ -127,7 +95,7 @@ public class ChatBotChen {
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement)
+	private String transformIWantStatement(String statement, String keyword)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -138,9 +106,9 @@ public class ChatBotChen {
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		int psn = findKeyword (statement, keyword, 0);
+		String restOfStatement = statement.substring(psn).trim();
+		System.out.println("Are you sure you want to " + restOfStatement + "?");
 	}
 	
 	
