@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,34 +22,48 @@ public class ChatBotChen {
 	 */
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("insert intro");
+		System.out.println("Hello, throughout this journey you may " + "\uD835\uDC28\uD835\uDC1B\uD835\uDC2C\uD835\uDC1E\uD835\uDC2B\uD835\uDC2F\uD835\uDC1E" + " your surroundings or check your " + "\uD835\uDC20\uD835\uDC28\uD835\uDC25\uD835\uDC1D" + " whenever you wish to.");
 		//scene 1
 		System.out.println("insert scene 1 intro");
 		String[] scene1 = {"hire"};
 		while (true) {
 			statement = in.nextLine().toLowerCase();
-			//getResponse handles the user reply
-			if (response1(statement)) {
+
+            String[] scene1 = {"hire"};
+            String sceneAlt = "You see people.";
+			if (response(statement, scene1)) {
 				break;
 			} else {
-				altResponse1(statement);
+				altResponse1(statement, sceneAlt);
 			}
 		}
 		//scene 2
 	}
 
-	public boolean response1(String statement) {
-		String[] scene1 = {"hire"};
-		for (int i = 0; i < scene1.length; i++) {
-			if (statement.contains(scene1[i])) {
+	public String checkGold(){
+	    return "Your party currently has " + gold + " gold piece(s).";
+    }
+    public String invalidAction(){
+	    return "Please choose a valid action (in bold).";
+    }
+
+	public boolean response(String statement, String[] keyword) {
+		for (int i = 0; i < keyword.length; i++) {
+			if (statement.contains(keyword[i])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void altResponse1(String statement){
-
+	public void altResponse1(String statement, String sceneAlt){
+        if(statement.contains("observe")){
+            System.out.println(sceneAlt);
+        } else if (statement.contains("gold")){
+            System.out.println(checkGold());
+        } else {
+            System.out.println(invalidAction());
+        }
 	}
 
 	/**
