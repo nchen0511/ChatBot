@@ -7,12 +7,23 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBot3
+public class ChatBotCox
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-	int emotion = 0;
+	private int emotion = 0;
+	private int eaIndex = 0;
 
+	public static ChatBotCox[] initializeEvents(int eNum)
+	{
+		ChatBotCox[] events = new ChatBotCox[eNum + 1];
+		for (int i = 0; i < events.length; i++)
+		{
+			events[i] = new ChatBotCox();
+		}
+		return events;
+	}
 
+	ChatBotCox[] eventArray = initializeEvents(30);
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -23,19 +34,15 @@ public class ChatBot3
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
 
-
 		while (!statement.equals("Bye"))
 		{
-
-
 			statement = in.nextLine();
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
-
-
 		}
 
 	}
+
 	/**
 	 * Get a default greeting 	
 	 * @return a greeting
