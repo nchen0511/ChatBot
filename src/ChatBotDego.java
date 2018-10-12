@@ -7,11 +7,12 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBot2
+public class ChatBotDego
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-
+	String potType = "";
+	boolean game = false;
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -29,11 +30,18 @@ public class ChatBot2
 
 			statement = in.nextLine();
 			//getResponse handles the user reply
+            while (!statement.equalsIgnoreCase("quit")){
+
+
+            if (game == true) {
+                System.out.println(getResponseGame(statement));
+            }
+        }
 			System.out.println(getResponse(statement));
 
 
 		}
-
+    // To use transform methods only in certain conditions like in a game make another method similar to getresponse and then make an if statement in chat loop that would check for the state and if its true it will use the second get response methof
 	}
 	/**
 	 * Get a default greeting 	
@@ -41,7 +49,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hello, I am a witch";
 	}
 	
 	/**
@@ -88,8 +96,27 @@ public class ChatBot2
 		
 		return response;
 	}
-	
-	/**
+
+	public String getResponseGame(String statement){
+	    String response = "";
+
+	    if(statement.length() == 0){
+	        response = "Did you mean to press enter?";
+        }
+        else if(findKeyword(statement, "I want to", 0) >= 0){
+            response = transformAction(statement);
+        }
+        else if(findKeyword (statement, "add", 0) >= 0){
+            response = transformAdd(statement);
+        }
+        else if(findKeyword (statement, "remove", 0) >= 0){
+            response = transformRemove(statement);
+        }
+    }
+
+
+
+    /**
 	 * Take a statement with "I want to <something>." and transform it into 
 	 * "Why do you want to <something>?"
 	 * @param statement the user statement, assumed to contain "I want to"
@@ -159,7 +186,82 @@ public class ChatBot2
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
-	
+
+
+    /**
+     *
+     * @param statement
+     * @return
+     */
+
+	private String transformAction(String statement){
+		//remove the final period if there is one
+		statement = statement.trim();
+		String period = statement.substring(statement.length() - 1);
+		if(period.equals(".")){
+			statement = statement.substring(0, statement.length() - 1);
+		}
+        int psn = findKeyword (statement, "I want to", 0);
+        String restOfStatement = statement.substring(psn + 9).trim();
+        return "Are you sure you want to " + restOfStatement + "?";
+	}
+
+
+    /**
+     * During make a potion game when you are adding more stuff to the pot it will tell you what is in the pot and if you want to add more stuff
+     * @param statement
+     * @return
+     */
+
+    private String transformAdd(String statement){
+        //remove the final period if there is one
+        statement = statement.trim();
+        String period = statement.substring(statement.length() - 1);
+        if(period.equals(".")){
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        int psn = findKeyword (statement, "add", 0);
+        String restOfStatement = statement.substring(psn + 4).trim();
+        return "Are you sure you want to add a " + restOfStatement + "?";
+    }
+
+    /**
+     * During make a potion game when you want to remove stuff to the pot it will tell you what is in the pot if you are sure you want to remove the object
+     * @param statement
+     * @return
+     */
+
+    private String transformRemove(String statement){
+        //remove the final period if there is one
+        statement = statement.trim();
+        String period = statement.substring(statement.length() - 1);
+        if(period.equals(".")){
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        int psn = findKeyword (statement, "remove", 0);
+        String restOfStatement = statement.substring(psn + 7).trim();
+        return "Are you sure you want to remove a " + restOfStatement + "?";
+    }
+
+    /**
+     *
+     * @param statement
+     * @return
+     */
+
+    private String transformfinish(String statement){
+        //remove the final period if there is one
+        statement = statement.trim();
+        String period = statement.substring(statement.length() - 1);
+        if(period.equals(".")){
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        int psn = findKeyword (statement, "", 0);
+        String restOfStatement = statement.substring(psn + 9).trim();
+        return "Are you sure dont want to add anything else to the " + potType + "?";
+    }
+
+
 
 	
 	
@@ -259,7 +361,11 @@ public class ChatBot2
 		}	
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
-	
+    public String getPotType() {
+        Random r = new Random ();
+        return potTypes [r.nextInt(potTypes.length)];
+    }
+
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
 			"Hmmm.",
 			"Do you really think so?",
@@ -270,5 +376,6 @@ public class ChatBot2
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] potTypes = {"pot", "saucepan", "stewpot", "kettle", "jar", "crock", "vessel", "crucible"};
 	
 }

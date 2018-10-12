@@ -14,7 +14,7 @@ public class ChatBotRunner
 	public static void main(String[] args)
 	{
 		ChatBotChen chatbot1 = new ChatBotChen();
-		ChatBot2 chatbot2 = new ChatBot2();
+		ChatBotDego chatbotDego = new ChatBotDego();
 		ChatBot3 chatbot3 = new ChatBot3();
 		ChatBotJohan chatbot4 = new ChatBotJohan();
 
@@ -31,7 +31,7 @@ public class ChatBotRunner
 			if(statement.contains("1")){
 				chatbot1.chatLoop(statement);
 			} else if(statement.contains("2")) {
-				chatbot2.chatLoop(statement);
+				chatbotDego.chatLoop(statement);
 			} else if(statement.contains("3")){
 				chatbot3.chatLoop(statement);
 			} else if(statement.contains("4")){
