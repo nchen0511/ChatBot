@@ -28,15 +28,24 @@ public class ChatBotChen {
 			statement = in.nextLine().toLowerCase();
 
             String[] scene1 = {"get a quest"};
-            String sceneAlt = "The atmosphere is cheerful. There are people talking around something different at every table. There is a task board in which you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.";
+            String sceneAlt = "The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.";
 
-			if (response(statement, scene1)) {
-				break;
+            String r = response(statement,scene1);
+            if(r.equals("")){
+            	altResponse1(statement, sceneAlt);
 			} else {
-				altResponse1(statement, sceneAlt);
+            	transformIWantStatement(r);
+            	if(in.nextLine().toLowerCase().contains("yes")){
+            		break;
+				} else {
+					System.out.println("Okay!");
+				}
 			}
 		}
 		//scene 2
+		System.out.println("insert scene 2");
+		while (true) {
+		}
 	}
 
 	public String checkGold(){
@@ -46,14 +55,13 @@ public class ChatBotChen {
 	    return "Please choose a valid action (in bold).";
     }
 
-	public boolean response(String statement, String[] keyword) {
+	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
 			if (statement.contains(keyword[i])) {
-				transformIWantStatement(statement,keyword[i]);
-				return true;
+				return keyword[i];
 			}
 		}
-		return false;
+		return "";
 	}
 
 	public void altResponse1(String statement, String sceneAlt){
@@ -94,20 +102,9 @@ public class ChatBotChen {
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private void transformIWantStatement(String statement, String keyword)
+	private void transformIWantStatement(String keyword)
 	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, keyword, 0);
-		String restOfStatement = statement.substring(psn).trim();
-		System.out.println("Are you sure you want to " + restOfStatement + "?");
+		System.out.println("Are you sure you want to " + keyword + "?");
 	}
 
 
