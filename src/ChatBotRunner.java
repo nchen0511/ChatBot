@@ -16,7 +16,7 @@ public class ChatBotRunner
 		ChatBotChen chatbot1 = new ChatBotChen();
 		ChatBot2 chatbot2 = new ChatBot2();
 		ChatBot3 chatbot3 = new ChatBot3();
-		ChatBot4 chatbot4 = new ChatBot4();
+		//ChatBotJohan chatbot4 = new ChatBotJohan();
 
 
 		Scanner in = new Scanner (System.in);
@@ -28,10 +28,17 @@ public class ChatBotRunner
 		{
 			//Use Logic to control which chatbot is handling the conversation\
 			//This example has only chatbot1
-			if(statement.contains("test")){
+			if(statement.contains("1")){
 				chatbot1.chatLoop(statement);
+			} else if(statement.contains("2")) {
+				chatbot2.chatLoop(statement);
+			} else if(statement.contains("3")){
+				chatbot3.chatLoop(statement);
+			} else if(statement.contains("4")){
+
+			} else {
+				System.out.println("Please pick a number from 1 ~ 4.");
 			}
-			break;
 		}
 	}
 

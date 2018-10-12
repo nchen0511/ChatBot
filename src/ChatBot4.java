@@ -48,5 +48,4 @@ public class ChatBotJohan
 	}
 
 
-	private String findKeyword(String statement)
-
+	private String findKeyword(String statement);

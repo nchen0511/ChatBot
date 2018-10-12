@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,22 +21,31 @@ public class ChatBotChen {
 	 */
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session. Throughout this journey you may " + "\uD835\uDC28\uD835\uDC1B\uD835\uDC2C\uD835\uDC1E\uD835\uDC2B\uD835\uDC2F\uD835\uDC1E" + " your surroundings or check your " + "\uD835\uDC20\uD835\uDC28\uD835\uDC25\uD835\uDC1D" + " whenever you wish to.");
+		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session. Throughout this journey you may 𝐨𝐛𝐬𝐞𝐫𝐯𝐞 your surroundings or check your 𝐠𝐨𝐥𝐝 whenever you wish to.");
 		//scene 1
-		System.out.println("insert scene 1 intro");
+		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest? You enter the tavern, filled with many laughter and chatter.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
-            String[] scene1 = {"hire"};
-            String sceneAlt = "You see people.";
+            String[] scene1 = {"get a quest"};
+            String sceneAlt = "The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.";
 
-			if (response(statement, scene1)) {
-				break;
+            String r = response(statement,scene1);
+            if(r.equals("")){
+            	altResponse1(statement, sceneAlt);
 			} else {
-				altResponse1(statement, sceneAlt);
+            	transformIWantStatement(r);
+            	if(in.nextLine().toLowerCase().contains("yes")){
+            		break;
+				} else {
+					System.out.println("Okay!");
+				}
 			}
 		}
 		//scene 2
+		System.out.println("insert scene 2");
+		while (true) {
+		}
 	}
 
 	public String checkGold(){
@@ -47,14 +55,13 @@ public class ChatBotChen {
 	    return "Please choose a valid action (in bold).";
     }
 
-	public boolean response(String statement, String[] keyword) {
+	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
 			if (statement.contains(keyword[i])) {
-				transformIWantStatement(statement,keyword[i]);
-				return true;
+				return keyword[i];
 			}
 		}
-		return false;
+		return "";
 	}
 
 	public void altResponse1(String statement, String sceneAlt){
@@ -88,30 +95,19 @@ public class ChatBotChen {
 		return "Why do you want to " + restOfStatement + "?";
 	}
 
-	
+
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
+	 * Take a statement with "I want <something>." and transform it into
 	 * "Would you really be happy if you had <something>?"
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement, String keyword)
+	private void transformIWantStatement(String keyword)
 	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, keyword, 0);
-		String restOfStatement = statement.substring(psn).trim();
-		System.out.println("Are you sure you want to " + restOfStatement + "?");
+		System.out.println("Are you sure you want to " + keyword + "?");
 	}
-	
-	
+
+
 	/**
 	 * Take a statement with "I <something> you" and transform it into 
 	 * "Why do you <something> me?"
