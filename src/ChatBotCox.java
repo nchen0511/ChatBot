@@ -12,18 +12,39 @@ public class ChatBotCox
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	private int emotion = 0;
 	private int eaIndex = 0;
+	private String event = "";
+    private String res1 = "";
+    private String res2 = "";
+    private String res3 = "";
+    private String key1 = "";
+    private String key2 = "";
+    private String key3 = "";
+    private static String[] eventArray = {};
+    private static String[] keyArray = {};
+    private static String[] resArray = {};
 
 	public static ChatBotCox[] initializeEvents(int eNum)
 	{
 		ChatBotCox[] events = new ChatBotCox[eNum + 1];
+		int altIdx = 0;
 		for (int i = 0; i < events.length; i++)
 		{
-			events[i] = new ChatBotCox();
+		    events[i] = new ChatBotCox();
+			events[i].event = eventArray[i];
+            events[i].key1 = keyArray[altIdx];
+            events[i].res1 = resArray[altIdx];
+            altIdx++;
+            events[i].key2 = keyArray[altIdx];
+            events[i].res2 = resArray[altIdx];
+            altIdx++;
+            events[i].key3 = keyArray[altIdx];
+            events[i].res3 = resArray[altIdx];
+            altIdx++;
 		}
 		return events;
 	}
 
-	ChatBotCox[] eventArray = initializeEvents(30);
+	ChatBotCox[] storyArray = initializeEvents(30);
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -168,7 +189,19 @@ public class ChatBotCox
 		return "Why do you " + restOfStatement + " me?";
 	}
 	
+    private String areYouSure(String statement)
+    {
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
 
+        return "Are you sure you want to " + statement + "?";
+    }
 	
 	
 	/**
