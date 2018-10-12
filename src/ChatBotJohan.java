@@ -20,7 +20,7 @@ public class ChatBotJohan
 
     public void main(String[] args)
     {
-        System.out.println ("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
+        System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
                 " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
                 " on the wall is also ticking. You have 15 minutes until midnight.");
         chatLoop();
@@ -28,7 +28,7 @@ public class ChatBotJohan
 
     private void chatLoop()
     {
-        Scanner in = new Scanner (System.in);
+        Scanner in = new Scanner(System.in);
         String statement = in.nextLine();
         while (timer != 0 || !win)
         {
