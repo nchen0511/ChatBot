@@ -22,29 +22,34 @@ public class ChatBotChen {
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session. Throughout this journey you may 𝐨𝐛𝐬𝐞𝐫𝐯𝐞 your surroundings or check your 𝐠𝐨𝐥𝐝 whenever you wish to.");
+
 		//scene 1
 		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest? You enter the tavern, filled with many laughter and chatter.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
-            String[] scene1 = {"get a quest"};
+            String[] scene = {"get a quest"};
             String sceneAlt = "The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.";
-
-            String r = response(statement,scene1);
-            if(r.equals("")){
-            	altResponse1(statement, sceneAlt);
+			String r = response(statement,scene);
+			if(r.equals("")){
+				altResponse1(statement, sceneAlt);
 			} else {
-            	transformIWantStatement(r);
-            	if(in.nextLine().toLowerCase().contains("yes")){
-            		break;
+				transformIWantStatement(r);
+				if(findKeyword(in.nextLine().toLowerCase(),"yes",0)){
+					break;
 				} else {
-					System.out.println("Okay!");
+					System.out.println("No? Okay.");
 				}
 			}
+			break;
 		}
+
 		//scene 2
-		System.out.println("insert scene 2");
+		System.out.println("One particular quest catches your eye. It is a simple pest control quest. Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional. You decide to take the quest, but it requires a party of 2 members.");
 		while (true) {
+			statement = in.nextLine().toLowerCase();
+			String[] scene = {"hire "};
+			String sceneAlt = "You look around, there seems be adventurers gathered at the waiting section, looking for a party. Judging by their appearance, you could tell their class";
 		}
 	}
 
@@ -57,7 +62,7 @@ public class ChatBotChen {
 
 	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
-			if (statement.contains(keyword[i])) {
+			if (findKeyword(statement,keyword[i],0)) {
 				return keyword[i];
 			}
 		}
@@ -73,28 +78,6 @@ public class ChatBotChen {
             System.out.println(invalidAction());
         }
 	}
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
-	private String transformIWantToStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
-	}
-
 
 	/**
 	 * Take a statement with "I want <something>." and transform it into
@@ -106,35 +89,6 @@ public class ChatBotChen {
 	{
 		System.out.println("Are you sure you want to " + keyword + "?");
 	}
-
-
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
-	private String transformIYouStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
-	}
-	
-
-	
 	
 	/**
 	 * Search for one word in phrase. The search is not case
@@ -152,7 +106,7 @@ public class ChatBotChen {
 	 * @return the index of the first occurrence of goal in
 	 *         statement or -1 if it's not found
 	 */
-	private int findKeyword(String statement, String goal,
+	private boolean findKeyword(String statement, String goal,
 			int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
@@ -188,7 +142,7 @@ public class ChatBotChen {
 					&& ((after.compareTo("a") < 0) || (after
 							.compareTo("z") > 0)))
 			{
-				return psn;
+				return false;
 			}
 
 			// The last position didn't work, so let's find
@@ -197,22 +151,8 @@ public class ChatBotChen {
 
 		}
 
-		return -1;
+		return false;
 	}
-	
-	/**
-	 * Search for one word in phrase.  The search is not case sensitive.
-	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
-	 * @param statement the string to search
-	 * @param goal the string to search for
-	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
-	 */
-	private int findKeyword(String statement, String goal)
-	{
-		return findKeyword (statement, goal, 0);
-	}
-	
 
 
 	/**
