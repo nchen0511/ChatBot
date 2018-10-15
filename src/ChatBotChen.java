@@ -8,8 +8,9 @@ import java.util.Scanner;
  * @version September 2018
  */
 public class ChatBotChen {
-	//emotion starts at 0, which is neutral, increases as user makes worse choice and the bot's comment will become progressively more sarcastic
-	int emotion = 0;
+	//emotion starts at 0, which is neutral, increases whenever user does not proceed to the next scene, becomes more impatient
+	int emotion1 = 0;
+	int emotion2 = 0;
 
 	//gold will be a variable used throughout the adventure
 	int gold = 0;
@@ -39,24 +40,41 @@ public class ChatBotChen {
 					break;
 				} else {
 					System.out.println("No? Okay.");
+					emotion2++;
 				}
 			}
 			break;
 		}
 
+		emotion1 = 0;
+		emotion2 = 0;
 		//scene 2
 		System.out.println("One particular quest catches your eye. It is a simple pest control quest. Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional. You decide to take the quest, but it requires a party of 2 members.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = {"hire "};
-			String sceneAlt = "You look around, there seems be adventurers gathered at the waiting section, looking for a party. Judging by their appearance, you could tell their class";
+			String sceneAlt = "You look around, there seems be adventurers gathered at the waiting section, looking for a party. You could tell their classes by their appearance";
 		}
 	}
 
 	public String checkGold(){
-	    return "Your party currently has " + gold + " gold piece(s).";
+		emotion1++;
+		int num = (int)(Math.random()*4);
+		String comment = "";
+		if(emotion1>4){
+			String [] responses = {"Can you hurry up already?", "You've already checked " + emotion1 + " times!", "Now can we move on with the story?"};
+			comment = responses[num];
+		} else if(emotion1>2){
+			String [] responses = {"Please hurry up.", "Can we get back to the story?", "Okay, I think you've checked enough."};
+			comment = responses[num];
+		} else {
+			String [] responses = {"Looking pretty good.", "", "Nice!"};
+			comment = responses[num];
+		}
+	    return "Your party currently has " + gold + " gold piece(s)." + comment;
     }
     public String invalidAction(){
+		emotion2++;
 	    return "Please choose a valid action (in bold).";
     }
 
@@ -159,7 +177,7 @@ public class ChatBotChen {
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
 	 */
-	private String getRandomResponse ()
+/*	private String getRandomResponse ()
 	{
 		Random r = new Random ();
 		if (emotion == 0)
@@ -184,5 +202,5 @@ public class ChatBotChen {
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+*/
 }

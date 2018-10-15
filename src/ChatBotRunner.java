@@ -14,8 +14,8 @@ public class ChatBotRunner
 	public static void main(String[] args)
 	{
 		ChatBotChen chatbot1 = new ChatBotChen();
-		ChatBotDego chatbotDego = new ChatBotDego();
-		ChatBot3 chatbot3 = new ChatBot3();
+		//ChatBotDego chatbotDego = new ChatBotDego();
+		ChatBotCox chatbot3 = new ChatBotCox();
 		//ChatBotJohan chatbot4 = new ChatBotJohan();
 
 
@@ -31,11 +31,11 @@ public class ChatBotRunner
 			if(statement.contains("1")){
 				chatbot1.chatLoop(statement);
 			} else if(statement.contains("2")) {
-				chatbotDego.chatLoop(statement);
+				//chatbotDego.chatLoop(statement);
 			} else if(statement.contains("3")){
 				chatbot3.chatLoop(statement);
 			} else if(statement.contains("4")){
-
+				//Cchat4.chatLoop(statement);
 			} else {
 				System.out.println("Please pick a number from 1 ~ 4.");
 			}

@@ -1,4 +1,4 @@
-import java.util.Scanner;
+/*import java.util.Scanner;
 
 public class ChatBotJohan
 {
@@ -114,5 +114,5 @@ public class ChatBotJohan
             return -1;
         }
 }
-
+*/
 
