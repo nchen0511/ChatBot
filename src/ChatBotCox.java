@@ -11,19 +11,24 @@ public class ChatBotCox
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	private int emotion = 0;
-	private int eaIndex = 0;
+	private int curIdx = 0;
 	private String event = "";
-    private String res1 = "";
-    private String res2 = "";
-    private String res3 = "";
+    private int res1 = 0;
+    private int res2 = 0;
+    private int res3 = 0;
     private String key1 = "";
     private String key2 = "";
     private String key3 = "";
-    private static String[] eventArray = {};
-    private static String[] keyArray = {};
-    private static String[] resArray = {};
+    private static String[] eventArray = {""};
+    private static String[] keyArray = {"","",""};
+    private static int[] resArray = {};
 
-	public static ChatBotCox[] initializeEvents(int eNum)
+	/**
+	 * Creates an array of objects for each section of the story
+	 *
+	 * @param eNum the number of events in the story
+	 */
+    private static ChatBotCox[] initializeEvents(int eNum)
 	{
 		ChatBotCox[] events = new ChatBotCox[eNum + 1];
 		int altIdx = 0;
@@ -89,32 +94,24 @@ public class ChatBotCox
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, storyArray[curIdx].key1) >= 0)
 		{
-			response = "Why so negative?";
-                	emotion--;
-		}
-		
-		else if (findKeyword(statement, "levin") >= 0)
-		{
-			response = "More like LevinTheDream amiright?";
-			emotion++;
+			curIdx = storyArray[curIdx].res1;
+			response = storyArray[curIdx].event;
 		}
 
-		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, storyArray[curIdx].key2) >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			curIdx = storyArray[curIdx].res2;
+			response = storyArray[curIdx].event;
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+
+		else if (findKeyword(statement, storyArray[curIdx].key3) >= 0)
 		{
-			response = transformIWantStatement(statement);
-		}	
-		else
-		{
-			response = getRandomResponse();
+			curIdx = storyArray[curIdx].res3;
+			response = storyArray[curIdx].event;
 		}
-		
+
 		return response;
 	}
 	
