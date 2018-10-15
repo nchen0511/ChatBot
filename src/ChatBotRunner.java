@@ -15,8 +15,8 @@ public class ChatBotRunner
 	{
 		ChatBotChen chatbot1 = new ChatBotChen();
 		ChatBotDego chatbotDego = new ChatBotDego();
-		ChatBot3 chatbot3 = new ChatBot3();
-		//ChatBotJohan chatbot4 = new ChatBotJohan();
+		ChatBotCox chatbot3 = new ChatBotCox();
+		ChatBotJohan chatbot4 = new ChatBotJohan();
 
 
 		Scanner in = new Scanner (System.in);
