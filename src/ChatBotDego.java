@@ -44,17 +44,17 @@ public class ChatBotDego
     // To use transform methods only in certain conditions like in a game make another method similar to getresponse and then make an if statement in chat loop that would check for the state and if its true it will use the second get response methof
 	}
 	/**
-	 * Get a default greeting 	
+	 * Get a default greeting
 	 * @return a greeting
-	 */	
+	 */
 	public String getGreeting()
 	{
 		return "Hello, I am a witch";
 	}
-	
+
 	/**
 	 * Gives a response to a user statement
-	 * 
+	 *
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
@@ -62,7 +62,7 @@ public class ChatBotDego
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
 			response = "Say something, please.";
@@ -73,7 +73,7 @@ public class ChatBotDego
 			response = "Why so negative?";
                 	emotion--;
 		}
-		
+
 		else if (findKeyword(statement, "levin") >= 0)
 		{
 			response = "More like LevinTheDream amiright?";
@@ -88,12 +88,12 @@ public class ChatBotDego
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
-		}	
+		}
 		else
 		{
 			response = getRandomResponse();
 		}
-		
+
 		return response;
 	}
 
@@ -112,12 +112,13 @@ public class ChatBotDego
         else if(findKeyword (statement, "remove", 0) >= 0){
             response = transformRemove(statement);
         }
+        return response;
     }
 
 
 
     /**
-	 * Take a statement with "I want to <something>." and transform it into 
+	 * Take a statement with "I want to <something>." and transform it into
 	 * "Why do you want to <something>?"
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
@@ -138,9 +139,9 @@ public class ChatBotDego
 		return "Why do you want to " + restOfStatement + "?";
 	}
 
-	
+
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
+	 * Take a statement with "I want <something>." and transform it into
 	 * "Would you really be happy if you had <something>?"
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
@@ -160,10 +161,10 @@ public class ChatBotDego
 		String restOfStatement = statement.substring(psn + 6).trim();
 		return "Would you really be happy if you had " + restOfStatement + "?";
 	}
-	
-	
+
+
 	/**
-	 * Take a statement with "I <something> you" and transform it into 
+	 * Take a statement with "I <something> you" and transform it into
 	 * "Why do you <something> me?"
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
@@ -179,10 +180,10 @@ public class ChatBotDego
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		
+
 		int psnOfI = findKeyword (statement, "I", 0);
 		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
+
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
@@ -263,8 +264,8 @@ public class ChatBotDego
 
 
 
-	
-	
+
+
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
@@ -328,11 +329,11 @@ public class ChatBotDego
 
 		return -1;
 	}
-	
+
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
 	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
+	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.
 	 * @param statement the string to search
 	 * @param goal the string to search for
 	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
@@ -341,7 +342,7 @@ public class ChatBotDego
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
+
 
 
 	/**
@@ -352,13 +353,13 @@ public class ChatBotDego
 	{
 		Random r = new Random ();
 		if (emotion == 0)
-		{	
+		{
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
 		if (emotion < 0)
-		{	
+		{
 			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
+		}
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
     public String getPotType() {
@@ -377,5 +378,5 @@ public class ChatBotDego
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 	private String [] potTypes = {"pot", "saucepan", "stewpot", "kettle", "jar", "crock", "vessel", "crucible"};
-	
+
 }
