@@ -26,8 +26,11 @@ public class ChatBotJohan
         chatLoop();
     }
 
-    private void chatLoop()
+    public void chatLoop()
     {
+        System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
+                " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
+                " on the wall is also ticking. You have 15 minutes until midnight.");
         Scanner in = new Scanner(System.in);
         String statement = in.nextLine();
         while (timer != 0 || !win)
@@ -37,82 +40,82 @@ public class ChatBotJohan
     }
 
 	private void transformKeyword(String statement)
-	{
-		statement = statement.trim();
-		statement = statement.toLowerCase();
-		stop = 0;
-		if(statement.contains("use"))
+    {
+        statement = statement.trim();
+        statement = statement.toLowerCase();
+        stop = 0;
+        if (findKeyword(statement, "use", 0) != -1)
         {
-            if(statement.contains("on"))
+            if (findKeyword(statement, "on", 0) != -1)
             {
-                used = statement.substring(statement.indexOf("use") + 1, statement.indexOf("on"));
-                usedOn = statement.substring(statement.indexOf("on") + 1);
+                used = statement.substring(findKeyword(statement, "use", 0) + 1, findKeyword(statement, "on", 0));
+                usedOn = statement.substring(findKeyword(statement, "on", 0) + 1);
             }
-            used = statement.substring(statement.indexOf("use") + 1);
-            for(int j = 0; j < inventory.length; j++)
+            used = statement.substring(findKeyword(statement, "use", 0) + 1);
+            for (int j = 0; j < inventory.length; j++)
             {
-                if(inventory[j].equals(used))
+                if (inventory[j].equals(used))
                 {
                     stop++;
-                    if(statement.contains("on"))
+                    if (findKeyword(statement, "on", 0) != -1)
                     {
-                    if(!(statement.contains("on")))
-                    {
-                        System.out.println("What would you like to use the " + inventory[j] + " on?");
+                        if (findKeyword(statement, "on", 0) == -1)
+                        {
+                            System.out.println("What would you like to use the " + inventory[j] + " on?");
+                        }
+                        break;
                     }
+                }
+                if (stop == 0)
+                    System.out.println("You don't have that object in your inventory.");
+            }
+            for (int i = 0; i < roomObs.length; i++) {
+                stop = 0;
+                if (findKeyword(statement, roomObs[i][0], 0) != -1)
+                {
+                    System.out.println(roomObs[i][1]);
+                    if (roomObs[i][1].contains("You pocket it."))
+                        inventory[inventory.length] = roomObs[i][0];
+                    timer--;
+                    if (timer == 1)
+                        System.out.println(timer + " minute until midnight. You feel an overwhelming sense of dread.");
+                    else
+                        System.out.println(timer + " minutes until midnight.");
+                    stop++;
                     break;
                 }
             }
-            if(stop == 0)
-                System.out.println("You don't have that object in your inventory.");
+            if (stop == 0)
+                System.out.println("You are confused by your own thought process. Try again.");
         }
-		for (int i = 0; i < roomObs.length; i++)
-		{
-            stop = 0;
-			if(statement.contains(roomObs[i][0]))
-			{
-				System.out.println(roomObs[i][1]);
-				if(roomObs[i][1].contains("You pocket it."))
-					inventory[inventory.length] = roomObs[i][0];
-				timer--;
-				if(timer == 1)
-                    System.out.println(timer + " minute until midnight. You feel an overwhelming sense of dread.");
-				else
-				    System.out.println(timer + " minutes until midnight.");
-				stop++;
-				break;
-			}
-		}
-		if (stop == 0)
-			System.out.println("You are confused by your own thought process. Try again.");
-	}
-        private int findKeyword(String statement, String goal, int startPos)
+    }
+    private int findKeyword(String statement, String goal, int startPos)
+    {
+        String phrase = statement.trim().toLowerCase();
+        goal = goal.toLowerCase();
+        int psn = phrase.indexOf(goal, startPos);
+        while (psn >= 0)
         {
-            String phrase = statement.trim().toLowerCase();
-            goal = goal.toLowerCase();
-            int psn = phrase.indexOf(goal, startPos);
-            while (psn >= 0)
+            String before = " ", after = " ";
+            if (psn > 0)
             {
-                String before = " ", after = " ";
-                if (psn > 0)
-                {
-                    before = phrase.substring(psn - 1, psn);
-                }
-                if (psn + goal.length() < phrase.length())
-                {
-                    after = phrase.substring(
-                            psn + goal.length(),
-                            psn + goal.length() + 1);
-                }
-                if (((before.compareTo("a") < 0) || (before.compareTo("z") > 0))
-                        && ((after.compareTo("a") < 0) || (after.compareTo("z") > 0)))
-                {
-                    return psn;
-                }
-                psn = phrase.indexOf(goal, psn + 1);
+                before = phrase.substring(psn - 1, psn);
             }
-            return -1;
+            if (psn + goal.length() < phrase.length())
+            {
+                after = phrase.substring(
+                        psn + goal.length(),
+                        psn + goal.length() + 1);
+            }
+            if (((before.compareTo("a") < 0) || (before.compareTo("z") > 0))
+                    && ((after.compareTo("a") < 0) || (after.compareTo("z") > 0)))
+            {
+                return psn;
+            }
+            psn = phrase.indexOf(goal, psn + 1);
         }
+        return -1;
+    }
 }
 
 
