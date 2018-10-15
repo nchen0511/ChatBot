@@ -112,6 +112,7 @@ public class ChatBotDego
         else if(findKeyword (statement, "remove", 0) >= 0){
             response = transformRemove(statement);
         }
+        return response;
     }
 
 
