@@ -49,7 +49,7 @@ public class ChatBotDego
 	 */
 	public String getGreeting()
 	{
-		return "Hello, I am a witch";
+		return "Hello, Im a witch boo";
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ChatBotDego
 
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "Say something, please im not that ugly.";
 		}
 
 		else if (findKeyword(statement, "no") >= 0)
@@ -92,6 +92,10 @@ public class ChatBotDego
 		else
 		{
 			response = getRandomResponse();
+			if(response.equals("Want to hear a joke?")){
+			    int index = 5;    //5 is place holder for a random number
+
+            }
 		}
 
 		return response;
@@ -106,12 +110,16 @@ public class ChatBotDego
         else if(findKeyword(statement, "I want to", 0) >= 0){
             response = transformAction(statement);
         }
-        else if(findKeyword (statement, "add", 0) >= 0){
+        else if(findKeyword (statement, "add") >= 0){
             response = transformAdd(statement);
         }
-        else if(findKeyword (statement, "remove", 0) >= 0){
+        else if(findKeyword (statement, "remove") >= 0){
             response = transformRemove(statement);
         }
+        else if(findKeyword(statement, "finish") >= 0){
+        	response = transformfinish(statement);
+		}
+
         return response;
     }
 
@@ -257,8 +265,8 @@ public class ChatBotDego
         if(period.equals(".")){
             statement = statement.substring(0, statement.length() - 1);
         }
-        int psn = findKeyword (statement, "", 0);
-        String restOfStatement = statement.substring(psn + 9).trim();
+        int psn = findKeyword (statement, "finish", 0);
+        String restOfStatement = statement.substring(psn + 6).trim();
         return "Are you sure dont want to add anything else to the " + potType + "?";
     }
 
@@ -367,16 +375,25 @@ public class ChatBotDego
         return potTypes [r.nextInt(potTypes.length)];
     }
 
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
-	};
+    private String getJoke(int index){
+		return randomhalloweenJokes[index];
+
+	}
+	private String getjokeanswer(int index){
+		return haloweenJokeAnswers[index];
+	}
+
+	private String [] randomNeutralResponses = {"Would you like to play the potion maker game?","What are you going as for halloween.", "Want to hear a joke?",};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] randomhalloweenJokes = {"What do ghosts eat for supper?","What do you do when 50 zombies surround your house?","What is the most important subject a witch learns in school?","Why didn’t the skeleton want to go to school?",
+										"Why didn’t the skeleton cross the road?","Why did the skeleton cross the road?","Why didn’t the skeleton go to the ball?","What did the little girl say when she had to choose between a tricycle and a candy bar?",
+										"What do you call a fat pumpkin?","What room does a ghost not need?","Why are ghosts so bad at lying?","Who did Frankenstein take to the dance?","Why is Superman’s costume so tight?","What do ghosts use to wash their hair?",
+										"What is a vampire’s favorite fruit?","What kind of dessert does a ghost like?","When is it bad luck to be followed by a black cat?","What do moms dress up as on Halloween?","What is a ghost’s favorite fruit?",
+										"What do you get when you cross a snowman with a vampire?","Why do ghosts make good cheerleaders?","Why is a skeleton so mean?","What do vampires take when they are sick?"};
+	private String [] haloweenJokeAnswers = {"Spooketi!","Hope it’s Halloween!!","Spelling.","His heart wasn’t in it.","He didn’t have any guts!","To get to the body shop.","Because he had no BODY to go with.","Trike or Treat?","A plumpkin.","A living room!",
+											"Because you can see right through them!","His “ghoul” friend!","Because he wears a size “S”.","Shamboo!","A nectarine!","I scream!","When you’re a mouse.","Mummies!","Booberries!","Frostbite.","Because they have a lot of spirit.",
+											"He doesn’t have a heart.","Coffin drops!"};
 	private String [] potTypes = {"pot", "saucepan", "stewpot", "kettle", "jar", "crock", "vessel", "crucible"};
 
 }
