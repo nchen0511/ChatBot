@@ -15,6 +15,9 @@ public class ChatBotChen {
 	//gold will be a variable used throughout the adventure
 	int gold = 0;
 
+	//variables to remember player choices
+	String choice1;
+	String scene[];
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
 	 *
@@ -43,7 +46,6 @@ public class ChatBotChen {
 					emotion2++;
 				}
 			}
-			break;
 		}
 
 		emotion1 = 0;
@@ -52,31 +54,74 @@ public class ChatBotChen {
 		System.out.println("One particular quest catches your eye. It is a simple pest control quest. Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional. You decide to take the quest, but it requires a party of 2 members.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
-			String[] scene = {"hire "};
-			String sceneAlt = "You look around, there seems be adventurers gathered at the waiting section, looking for a party. You could tell their classes by their appearance";
+			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
+			String sceneAlt = "You look around, there seems be several adventurers gathered at the waiting section, looking for a party. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Finally, at the corner of the room was a short person whose gender or profession you could not identify. Looks like your choices is to 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭, the 𝐩𝐫𝐢𝐞𝐬𝐭, or the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧";
+			String r = response(statement,scene);
+			if(r.equals("")){
+				altResponse1(statement, sceneAlt);
+			} else {
+				transformIWantStatement(r);
+				if(findKeyword(in.nextLine().toLowerCase(),"yes",0)){
+					choice1 = r;
+					System.out.println(choice1);
+					break;
+				} else {
+					System.out.println("No? Okay.");
+					emotion2++;
+				}
+			}
 		}
+
+		emotion1 = 0;
+		emotion2 = 0;
+		//scene 3
+
 	}
 
 	public String checkGold(){
 		emotion1++;
-		int num = (int)(Math.random()*4);
+		int num = (int)(Math.random()*3);
 		String comment = "";
-		if(emotion1>4){
+		if(emotion1>10){
 			String [] responses = {"Can you hurry up already?", "You've already checked " + emotion1 + " times!", "Now can we move on with the story?"};
 			comment = responses[num];
-		} else if(emotion1>2){
+		} else if(emotion1>4){
 			String [] responses = {"Please hurry up.", "Can we get back to the story?", "Okay, I think you've checked enough."};
 			comment = responses[num];
 		} else {
 			String [] responses = {"Looking pretty good.", "", "Nice!"};
 			comment = responses[num];
 		}
-	    return "Your party currently has " + gold + " gold piece(s)." + comment;
+	    return "Your party currently has " + gold + " gold piece(s). " + comment;
     }
     public String invalidAction(){
 		emotion2++;
-	    return "Please choose a valid action (in bold).";
+		int num = (int)(Math.random()*3);
+		String comment = "";
+		if(emotion2>10){
+			String [] responses = {"Okay??", "Do you not speak English?", "Have you tried to " + scene[new Random().nextInt(scene.length)] + "?"};
+			comment = responses[num];
+		} else if(emotion2>6){
+			String [] responses = {"What don't you understand?", "IN. BOLD.", "Sir."};
+			comment = responses[num];
+		} else if(emotion2>3) {
+			String [] responses = {"What's so hard to get?", "In. Bold.", "Have you tried to OBSERVE?"};
+			comment = responses[num];
+		}
+	    return "Please pick a valid action (in bold). " + comment;
     }
+
+    public String mock(String statement){
+		String newStr = "";
+		for(int i = 0; i < statement.length();i++){
+			if(i%2==0){
+				newStr += statement.substring(i,i+1).toLowerCase();
+			} else {
+				newStr += statement.substring(i,i+1).toUpperCase();
+			}
+		}
+		return newStr;
+	}
 
 	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
@@ -93,7 +138,11 @@ public class ChatBotChen {
         } else if (statement.contains("gold")){
             System.out.println(checkGold());
         } else {
-            System.out.println(invalidAction());
+        	if(Math.random()>0.3) {
+				System.out.println(invalidAction());
+			} else {
+        		System.out.println(mock(statement));
+			}
         }
 	}
 
