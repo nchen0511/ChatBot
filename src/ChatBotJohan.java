@@ -1,4 +1,4 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
 public class ChatBotJohan
 {
@@ -23,10 +23,9 @@ public class ChatBotJohan
         System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
                 " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
                 " on the wall is also ticking. You have 15 minutes until midnight.");
-        chatLoop();
     }
 
-    public void chatLoop()
+    public void chatLoop(String statemen)
     {
         System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
                 " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
@@ -117,5 +116,4 @@ public class ChatBotJohan
         return -1;
     }
 }
-*/
 
