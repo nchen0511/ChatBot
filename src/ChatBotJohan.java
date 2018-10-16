@@ -85,7 +85,7 @@ public class ChatBotJohan
                         stop++;
                         for(int i = 0; i < roomUse.length; i++)
                         {
-                            if(roomUse[i][0] == used && roomUse[i][1] == usedOn)
+                            if(roomUse[i][0] == used && roomUse[i][1] == usedOn);
                         }
                     }
                     if (stop == 0)
