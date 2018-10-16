@@ -13,9 +13,10 @@ public class ChatBotChen {
 	int emotion2 = 0;
 
 	//gold will be a variable used throughout the adventure
-	int gold = 0;
+	int gold = 20;
 
 	//variables to remember player choices
+	boolean hi = false;
 	String choice1;
 	String scene[];
 	/**
@@ -25,10 +26,12 @@ public class ChatBotChen {
 	 */
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session. Throughout this journey you may 𝐨𝐛𝐬𝐞𝐫𝐯𝐞 your surroundings or check your 𝐠𝐨𝐥𝐝 whenever you wish to.");
+		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session.");
+		System.out.println("Throughout this journey you may 𝐨𝐛𝐬𝐞𝐫𝐯𝐞 your surroundings or check your 𝐠𝐨𝐥𝐝 whenever you wish to.");
 
 		//scene 1
-		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest? You enter the tavern, filled with many laughter and chatter.");
+		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest?");
+		System.out.println("You enter the tavern, filled with many laughter and chatter.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
@@ -39,7 +42,7 @@ public class ChatBotChen {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
-				if(findKeyword(in.nextLine().toLowerCase(),"yes",0)){
+				if(in.nextLine().toLowerCase().contains("yes")){
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -51,7 +54,9 @@ public class ChatBotChen {
 		emotion1 = 0;
 		emotion2 = 0;
 		//scene 2
-		System.out.println("One particular quest catches your eye. It is a simple pest control quest. Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional. You decide to take the quest, but it requires a party of 2 members.");
+		System.out.println("One particular quest catches your eye. It is a simple pest control quest.");
+		System.out.println("Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional.");
+		System.out.println("You decide to take the quest, but it requires a party of 2 members.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
@@ -61,9 +66,8 @@ public class ChatBotChen {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
-				if(findKeyword(in.nextLine().toLowerCase(),"yes",0)){
-					choice1 = r;
-					System.out.println(choice1);
+				if(in.nextLine().toLowerCase().contains("yes")){
+					choice1 = r.substring(4);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -75,13 +79,34 @@ public class ChatBotChen {
 		emotion1 = 0;
 		emotion2 = 0;
 		//scene 3
+		System.out.println("You offered to pay the " + choice1 + "  10 gold, but they'll only accept it after the job is done");
+		System.out.println("After a quick preparation, you head out to the remote village with the " + choice1);
+		System.out.println("On the road, your party runs into a wounded soldier. What would you like to do?");
+		while (true) {
+			statement = in.nextLine().toLowerCase();
+			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
+			String sceneAlt = "You look around, there seems be several adventurers gathered at the waiting section, looking for a party. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Finally, at the corner of the room was a short person whose gender or profession you could not identify. Looks like your choices is to 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭, the 𝐩𝐫𝐢𝐞𝐬𝐭, or the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧";
+			String r = response(statement,scene);
+			if(r.equals("")){
+				altResponse1(statement, sceneAlt);
+			} else {
+				transformIWantStatement(r);
+				if(in.nextLine().toLowerCase().contains("yes")){
+					choice1 = r.substring(4);
+					break;
+				} else {
+					System.out.println("No? Okay.");
+					emotion2++;
+				}
+			}
+		}
 
 	}
 
 	public String checkGold(){
 		emotion1++;
 		int num = (int)(Math.random()*3);
-		String comment = "";
+		String comment;
 		if(emotion1>10){
 			String [] responses = {"Can you hurry up already?", "You've already checked " + emotion1 + " times!", "Now can we move on with the story?"};
 			comment = responses[num];
@@ -99,7 +124,7 @@ public class ChatBotChen {
 		int num = (int)(Math.random()*3);
 		String comment = "";
 		if(emotion2>10){
-			String [] responses = {"Okay??", "Do you not speak English?", "Have you tried to " + scene[new Random().nextInt(scene.length)] + "?"};
+			String [] responses = {"Okay??", "Do you not speak English?", "How do you mess up " + emotion2 + " times?!"};
 			comment = responses[num];
 		} else if(emotion2>6){
 			String [] responses = {"What don't you understand?", "IN. BOLD.", "Sir."};
@@ -125,8 +150,17 @@ public class ChatBotChen {
 
 	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
-			if (findKeyword(statement,keyword[i],0)) {
+			if (statement.contains(keyword[i])) {
 				return keyword[i];
+			}
+		}
+		if (findKeyword(statement,"hi",0)==-1||findKeyword(statement,"hello",0)==-1){
+			if(!hi){
+				System.out.println("Hello!");
+				hi = true;
+			} else {
+				System.out.println("You already said hi.");
+				emotion2++;
 			}
 		}
 		return "";
@@ -173,8 +207,8 @@ public class ChatBotChen {
 	 * @return the index of the first occurrence of goal in
 	 *         statement or -1 if it's not found
 	 */
-	private boolean findKeyword(String statement, String goal,
-			int startPos)
+	private int findKeyword(String statement, String goal,
+							int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
 		goal = goal.toLowerCase();
@@ -205,11 +239,11 @@ public class ChatBotChen {
 			// found the word
 			if (((before.compareTo("a") < 0) || (before
 					.compareTo("z") > 0)) // before is not a
-											// letter
+					// letter
 					&& ((after.compareTo("a") < 0) || (after
-							.compareTo("z") > 0)))
+					.compareTo("z") > 0)))
 			{
-				return false;
+				return psn;
 			}
 
 			// The last position didn't work, so let's find
@@ -218,7 +252,7 @@ public class ChatBotChen {
 
 		}
 
-		return false;
+		return -1;
 	}
 
 
