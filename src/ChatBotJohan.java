@@ -7,7 +7,8 @@ public class ChatBotJohan
     private int stop = 0;
     private String used;
     private String usedOn;
-	private String inventory[] = {};
+	private String inventory[] = {"", "", "", ""};
+	private int counter = 0;
 	private String[][] roomObs = {
 	    {"scissors", "You notice a pair of bloody scissors on the floor, useful for cutting string. You pocket it."},
         {"scissors", "You've already taken the scissors."},
@@ -47,23 +48,27 @@ public class ChatBotJohan
             {"key", "drawer", "This key is only good for one thing: the door."}
     };
 
-    public void main(String[] args)
-    {
-        System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
-                " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
-                " on the wall is also ticking. You have 15 minutes until midnight.");
-    }
-
     public void chatLoop(String statemen)
     {
-        System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for" +
-                " a way out. You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer. A clock" +
-                " on the wall is also ticking. You have 15 minutes until midnight.");
+        System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for a way out.");
+        System.out.println("You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer.");
+        System.out.println("A clock on the wall is also ticking. You have 15 minutes until midnight.");
         Scanner in = new Scanner(System.in);
-        String statement = in.nextLine();
+        String statement;
         while (timer != 0 || !win)
         {
+            statement = in.nextLine();
             transformKeyword(statement);
+        }
+        if(timer == 0)
+        {
+            System.out.println("It's too late...");
+            System.out.println("You scream as a man crashes through the wall, chainsaw in hand.");
+            System.out.println("Nobody hears your screams as he saws you in half. It all goes hazy...");
+        }
+        if(win)
+        {
+            System.out.println("You finally escaped!");
         }
     }
 
@@ -76,21 +81,44 @@ public class ChatBotJohan
         {
             if (findKeyword(statement, "on", 0) != -1)
             {
-                used = statement.substring(findKeyword(statement, "use", 0) + 1, findKeyword(statement, "on", 0));
-                usedOn = statement.substring(findKeyword(statement, "on", 0) + 1);
+                used = statement.substring(findKeyword(statement, "use", 0) + 4, findKeyword(statement, "on", 0));
+                usedOn = statement.substring(findKeyword(statement, "on", 0) + 3);
                 for (int j = 0; j < inventory.length; j++)
                 {
+                    System.out.println(used);
+                    System.out.println(inventory[j]);
+                    if(used.equals(inventory[j]))
                     if (inventory[j].equals(used))
                     {
+                        System.out.println("HHHHHHHH");
                         stop++;
                         for(int i = 0; i < roomUse.length; i++)
                         {
-                            if(roomUse[i][0] == used && roomUse[i][1] == usedOn);
+                            if(roomUse[i][0] == used && roomUse[i][1] == usedOn)
+                            {
+                                if(roomUse[i].length > 3)
+                                {
+                                    System.out.println(roomUse[i][3]);
+                                    inventory[counter] = roomUse[i][2];
+                                    counter++;
+                                    return;
+                                }
+                                else
+                                {
+                                    System.out.println(roomUse[i][2]);
+                                    return;
+                                }
+                            }
                         }
+                        return;
                     }
-                    if (stop == 0)
-                        System.out.println("You don't have that object in your inventory.");
                 }
+                if(stop == 0)
+                {
+                    System.out.println("You don't have that object in your inventory.");
+                    return;
+                }
+                stop = 0;
             }
             used = statement.substring(findKeyword(statement, "use", 0) + 1);
             for (int j = 0; j < inventory.length; j++)
@@ -104,11 +132,14 @@ public class ChatBotJohan
                         {
                             System.out.println("What would you like to use the " + inventory[j] + " on?");
                         }
-                        break;
+                        return;
                     }
                 }
                 if (stop == 0)
+                {
                     System.out.println("You don't have that object in your inventory.");
+                    return;
+                }
             }
             return;
         }
@@ -118,7 +149,10 @@ public class ChatBotJohan
             {
                 System.out.println(roomObs[i][1]);
                 if (roomObs[i][1].contains("You pocket it."))
-                    inventory[inventory.length] = roomObs[i][0];
+                {
+                    inventory[counter] = roomObs[i][0];
+                    counter++;
+                }
                 timer--;
                 if (timer == 1)
                     System.out.println(timer + " minute until midnight. You feel an overwhelming sense of dread.");
