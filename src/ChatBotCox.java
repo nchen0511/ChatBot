@@ -12,44 +12,9 @@ public class ChatBotCox
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	private int emotion = 0;
 	private int curIdx = 0;
-	private String event = "";
-    private int res1 = 0;
-    private int res2 = 0;
-    private int res3 = 0;
-    private String key1 = "";
-    private String key2 = "";
-    private String key3 = "";
-    private static String[] eventArray = {""};
-    private static String[] keyArray = {"","",""};
-    private static int[] resArray = {};
-
-	/**
-	 * Creates an array of objects for each section of the story
-	 *
-	 * @param eNum the number of events in the story
-	 */
-    private static ChatBotCox[] initializeEvents(int eNum)
-	{
-		ChatBotCox[] events = new ChatBotCox[eNum + 1];
-		int altIdx = 0;
-		for (int i = 0; i < events.length; i++)
-		{
-		    events[i] = new ChatBotCox();
-			events[i].event = eventArray[i];
-            events[i].key1 = keyArray[altIdx];
-            events[i].res1 = resArray[altIdx];
-            altIdx++;
-            events[i].key2 = keyArray[altIdx];
-            events[i].res2 = resArray[altIdx];
-            altIdx++;
-            events[i].key3 = keyArray[altIdx];
-            events[i].res3 = resArray[altIdx];
-            altIdx++;
-		}
-		return events;
-	}
-
-	ChatBotCox[] storyArray = initializeEvents(30);
+    private static String[] eventArray = {"", "Event 2", "Event 3", "Event 4"};
+    private static String[] keyArray = {"key1","key2","key3"};
+    private static int[] resArray = {1,2,3};
 
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -66,7 +31,6 @@ public class ChatBotCox
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
 		}
-
 	}
 
 	/**
@@ -75,7 +39,7 @@ public class ChatBotCox
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return eventArray[0];
 	}
 	
 	/**
@@ -88,28 +52,28 @@ public class ChatBotCox
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
-		if (statement.length() == 0)
+
+		if (findKeyword(statement, keyArray[curIdx * 3]) >= 0)
 		{
-			response = "Say something, please.";
+			curIdx = resArray[curIdx * 3];
+			response = eventArray[curIdx];
 		}
 
-		else if (findKeyword(statement, storyArray[curIdx].key1) >= 0)
+		else if (findKeyword(statement, keyArray[(curIdx * 3) + 1]) >= 0)
 		{
-			curIdx = storyArray[curIdx].res1;
-			response = storyArray[curIdx].event;
+			curIdx = resArray[(curIdx * 3) + 1];
+			response = eventArray[curIdx];
 		}
 
-		else if (findKeyword(statement, storyArray[curIdx].key2) >= 0)
+		else if (findKeyword(statement, keyArray[(curIdx * 3) + 2]) >= 0)
 		{
-			curIdx = storyArray[curIdx].res2;
-			response = storyArray[curIdx].event;
+			curIdx = resArray[(curIdx * 3) + 2];
+			response = eventArray[curIdx];
 		}
 
-		else if (findKeyword(statement, storyArray[curIdx].key3) >= 0)
+		else
 		{
-			curIdx = storyArray[curIdx].res3;
-			response = storyArray[curIdx].event;
+			response = "I'm sorry I don't understand";
 		}
 
 		return response;
