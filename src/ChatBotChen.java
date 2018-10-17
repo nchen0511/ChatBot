@@ -15,9 +15,13 @@ public class ChatBotChen {
 	//gold will be a variable used throughout the adventure
 	int gold = 20;
 
-	//variables to remember player choices
+	//variables to remember conversation
 	boolean hi = false;
 	String choice1;
+	String choice2;
+	String choice3;
+
+	//scene array with different triggers for each ray
 	String scene[];
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
@@ -31,18 +35,19 @@ public class ChatBotChen {
 
 		//scene 1
 		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest?");
-		System.out.println("You enter the tavern, filled with many laughter and chatter.");
+		System.out.println("You enter the tavern, filled with many laughter and chatter. The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
-            String[] scene = {"get a quest"};
-            String sceneAlt = "The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.";
+            String[] scene = {"get a quest", "pick gold"};
+            String sceneAlt = "A glitter on the floor catches your eye. Some unfortunate fellow dropped a pouch of coins. Seems like you can 𝐩𝐢𝐜𝐤 up the 𝐠𝐨𝐥𝐝";
 			String r = response(statement,scene);
 			if(r.equals("")){
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
 				if(in.nextLine().toLowerCase().contains("yes")){
+					choice1 = r.substring(4);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -51,23 +56,26 @@ public class ChatBotChen {
 			}
 		}
 
-		emotion1 = 0;
-		emotion2 = 0;
+		sceneReset();
 		//scene 2
-		System.out.println("One particular quest catches your eye. It is a simple pest control quest.");
-		System.out.println("Apparently there was a slime invasion in a remote village nearby, but the reward is oddly exceptional.");
-		System.out.println("You decide to take the quest, but it requires a party of 2 members.");
+		if(choice1.equals(" gold")){
+			System.out.println("You pick up the pouch of gold. You count out 10 pieces in total. Not bad. You proceed to obtain a quest from the task board.");
+			gold+=10;
+		}
+		System.out.println("One particular quest catches your eye. It seemed simple enough.");
+		System.out.println("Apparently there someone was kidnapped in a remote village nearby, and the reward is oddly exceptional, a whole 30 coins for a simple rescue mission.");
+		System.out.println("You decide to take the quest, but it requires a party of 2 members. You take a glance at the waiting section, two adventurers stood out to you. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Looks like you can 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭 or the 𝐩𝐫𝐢𝐞𝐬𝐭,");
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
-			String sceneAlt = "You look around, there seems be several adventurers gathered at the waiting section, looking for a party. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Finally, at the corner of the room was a short person whose gender or profession you could not identify. Looks like your choices is to 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭, the 𝐩𝐫𝐢𝐞𝐬𝐭, or the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧";
+			String sceneAlt = "After a closer inspection, you see a short person whose gender or profession you could not identify at the corner of the room. Looks like you could 𝐡𝐢𝐫𝐞 the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧.";
 			String r = response(statement,scene);
 			if(r.equals("")){
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
 				if(in.nextLine().toLowerCase().contains("yes")){
-					choice1 = r.substring(4);
+					choice2 = r.substring(5);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -76,23 +84,38 @@ public class ChatBotChen {
 			}
 		}
 
-		emotion1 = 0;
-		emotion2 = 0;
+		sceneReset();
 		//scene 3
-		System.out.println("You offered to pay the " + choice1 + "  10 gold, but they'll only accept it after the job is done");
-		System.out.println("After a quick preparation, you head out to the remote village with the " + choice1);
-		System.out.println("On the road, your party runs into a wounded soldier. What would you like to do?");
+		System.out.println("You offered to pay the " + choice2 + "  20 gold, but they said they'd only accept it after the job is done");
+		System.out.println("After a quick preparation, you head out to the remote village with the " + choice2 + ".");
+		System.out.println("On the road, your party runs into a wounded soldier. There seems to be some options, but you could always just 𝐥𝐞𝐚𝐯𝐞. What would you like to do?");
+		if(choice2.equals("knight")){
+			System.out.println("Knight: He seems fatally wounded. It would be best to put him out of his 𝐞𝐧𝐝 𝐡𝐢𝐬 𝐦𝐢𝐬𝐞𝐫𝐲 right now, but it is up to you.");
+		} else if (choice2.equals("priest")){
+			System.out.println("Priest: This man is severely wounded. I can 𝐡𝐞𝐚𝐥 𝐡𝐢𝐦, but it's not easy and I won't do it for free. I expect a double in my payment at the end of this.");
+		} else {
+			System.out.println("Mysterious Person: Hmm, this is a spirit in disguise. These beings come out during Halloween to test your good will, and will react accordingly. It is best that we do not interfere as they are hard to please. I do have some supplies that can 𝐭𝐫𝐞𝐚𝐭 𝐡𝐢𝐦, however, if you wish to.");
+		}
 		while (true) {
 			statement = in.nextLine().toLowerCase();
-			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
-			String sceneAlt = "You look around, there seems be several adventurers gathered at the waiting section, looking for a party. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Finally, at the corner of the room was a short person whose gender or profession you could not identify. Looks like your choices is to 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭, the 𝐩𝐫𝐢𝐞𝐬𝐭, or the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧";
+			String[] scene = new String[3];
+			scene[0] = "leave";
+			scene[1] = "steal";
+			if(choice2.equals("knight")){
+				scene[2] = "misery his misery";
+			} else if (choice2.equals("priest")){
+				scene[2] = "heal him";
+			} else {
+				scene[2] = "treat him";
+			}
+			String sceneAlt = "The soldier is barely conscious. His gold pouch is within reach, and he does not seem to able stop you if you were to try and 𝐬𝐭𝐞𝐚𝐥 it";
 			String r = response(statement,scene);
 			if(r.equals("")){
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
 				if(in.nextLine().toLowerCase().contains("yes")){
-					choice1 = r.substring(4);
+					choice3 = r.substring(4);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -103,6 +126,11 @@ public class ChatBotChen {
 
 	}
 
+	public void sceneReset(){
+		hi = false;
+		emotion1 = 0;
+		emotion2 = 0;
+	}
 	public String checkGold(){
 		emotion1++;
 		int num = (int)(Math.random()*3);
@@ -154,7 +182,7 @@ public class ChatBotChen {
 				return keyword[i];
 			}
 		}
-		if (findKeyword(statement,"hi",0)==-1||findKeyword(statement,"hello",0)==-1){
+		if (findKeyword(statement,"hi",0)!=-1||findKeyword(statement,"hello",0)!=-1){
 			if(!hi){
 				System.out.println("Hello!");
 				hi = true;
