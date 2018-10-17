@@ -31,8 +31,6 @@ public class ChatBotDego
 			statement = in.nextLine();
 			//getResponse handles the user reply
             while (!statement.equalsIgnoreCase("quit")){
-
-
             if (game == true) {
                 System.out.println(getResponseGame(statement));
             }
@@ -92,10 +90,30 @@ public class ChatBotDego
 		else
 		{
 			response = getRandomResponse();
+			Scanner answer = new Scanner(System.in);
 			if(response.equals("Want to hear a joke?")){
-			    int index = 5;    //5 is place holder for a random number
-
+				System.out.println(response);
+				if(answer.nextLine().equals("yes")) {
+					Random x = new Random();
+					int index = x.nextInt(randomhalloweenJokes.length);
+					System.out.println(getJoke(index));
+				}
             }
+            if(response.equals("Would you like to play the potion maker game?")){
+				System.out.println(response);
+				if(answer.nextLine().equals("yes")){
+					game = true;
+					response = ("Ok in this game you give me 10 items to put into my random container and i will create a potion with your 10 items, to stop playing the game just say quit");
+				}
+				response = "ok mr. boring what do you want to do then?";
+			}
+			if(response.equals("What are you going as for halloween.")){
+				System.out.println(response);
+				costume[1] = answer.nextLine();
+				if(answer.nextLine().equalsIgnoreCase("spiderman")||answer.nextLine().equalsIgnoreCase("batman")||answer.nextLine().equalsIgnoreCase("superman")){
+					response = "Thats pretty boring";
+				}
+			}
 		}
 
 		return response;
@@ -115,13 +133,13 @@ public class ChatBotDego
         }
         else if(findKeyword (statement, "remove") >= 0){
             response = transformRemove(statement);
-        }
-        else if(findKeyword(statement, "finish") >= 0){
-        	response = transformfinish(statement);
 		}
 
         return response;
     }
+
+   // public String getpotion(String statement){
+
 
 
 
@@ -395,5 +413,7 @@ public class ChatBotDego
 											"Because you can see right through them!","His “ghoul” friend!","Because he wears a size “S”.","Shamboo!","A nectarine!","I scream!","When you’re a mouse.","Mummies!","Booberries!","Frostbite.","Because they have a lot of spirit.",
 											"He doesn’t have a heart.","Coffin drops!"};
 	private String [] potTypes = {"pot", "saucepan", "stewpot", "kettle", "jar", "crock", "vessel", "crucible"};
+	private String [] potion = new String[10];
+	private String [] costume = new String[1];
 
 }
