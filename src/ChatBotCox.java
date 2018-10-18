@@ -50,45 +50,45 @@ public class ChatBotCox
 			//18
 			"You sit on the sofa waiting for about 15 minutes in silence, you finally hear the doorbell ring and the old lady returns saying that it must be your mother.  As she opens the door you see your moms familiar face look in at yours as relief washes over her face as she goes to hug you.  She quickly however becomes angry and she scolds you for having run off so quickly without having a second thought about staying close to her.  She immediately takes you and your brother home where you spend the rest of the night looking out the window longingly at those still trick or treating.\nTHE END.\" Say \"done\" to play another story."
     };
-    private static String[] keyArray = {"candy", "mom",//K0
-			"no", "yes", //K1
-			"candy", "mom", //K2
-			"left", "right", //K3
-			"yes", "no", //K4
-			null, null, //K5
-			"left", "right", //K6
-			"no", "yes", //K7
-			"popular", "unpopular", //K8
-			"mom", "candy", //K9
-			"yes", "no", //K10
-			"candy", "wait",//K11
-			null, null,//K12
-			"yes", "no",//K13
-			"left", "right", //K14
-			null, null, //K15
-			null, null, //K16
-			"yes", "no", //K17
-			null, null //18
+    private static String[] keyArray = {"candy", "mom", , , ,//K0
+			"no", "yes", , , , //K1
+			"candy", "mom", , , , //K2
+			"left", "right", , , , //K3
+			"yes", "no", , , , //K4
+			null, null, , , , //K5
+			"left", "right", , , , //K6
+			"no", "yes", , , , //K7
+			"popular", "unpopular", , , , //K8
+			"mom", "candy", , , , //K9
+			"yes", "no", , , , //K10
+			"candy", "wait", , , , //K11
+			null, null, , , , //K12
+			"yes", "no", , , , //K13
+			"left", "right", , , , //K14
+			null, null, , , , //K15
+			null, null, , , , //K16
+			"yes", "no", , , , //K17
+			null, null , , , //18
     };
     private static int[] resArray = {1,6,//R0
-			2,11,//R1
-			3,10,//R2
-			4,7,//R3
-			5,13,//R4
-			12,12,//R5
-			4,7,//R6
-			8,16,//R7
-			9,17,//R8
-			10,17,//R9
-			5,13,//R10
-			12,18,//R11
-			12,12,//R12
-			14,15,//R13
-			4,7,//R14
-			15,15,//R15
-			16,16,//R16
-			14,15,//R17
-			18,18//18
+			2,11, , , ,//R1
+			3,10, , , ,//R2
+			4,7, , , ,//R3
+			5,13, , , ,//R4
+			12,12, , , ,//R5
+			4,7, , , ,//R6
+			8,16, , , ,//R7
+			9,17, , , ,//R8
+			10,17, , , ,//R9
+			5,13, , , ,//R10
+			12,18, , , ,//R11
+			12,12, , , ,//R12
+			14,15, , , ,//R13
+			4,7, , , ,//R14
+			15,15, , , ,//R15
+			16,16, , , ,//R16
+			14,15, , , ,//R17
+			18,18 , , ,//18
     };
 
 	/**
@@ -100,7 +100,7 @@ public class ChatBotCox
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
 
-		while (!statement.equals("Bye"))
+		while (!statement.equals("done"))
 		{
 			statement = in.nextLine();
 			//getResponse handles the user reply
@@ -128,15 +128,33 @@ public class ChatBotCox
 	{
 		String response = "";
 
-		if (findKeyword(statement, keyArray[curIdx * 2]) >= 0)
+		if (findKeyword(statement, keyArray[curIdx * 5]) >= 0)
 		{
-			curIdx = resArray[curIdx * 2];
+			curIdx = resArray[curIdx * 5];
 			response = eventArray[curIdx];
 		}
 
-		else if (findKeyword(statement, keyArray[(curIdx * 2) + 1]) >= 0)
+		else if (findKeyword(statement, keyArray[(curIdx * 5) + 1]) >= 0)
 		{
-			curIdx = resArray[(curIdx * 2) + 1];
+			curIdx = resArray[(curIdx * 5) + 1];
+			response = eventArray[curIdx];
+		}
+
+		else if (findKeyword(statement, keyArray[(curIdx * 5) + 2]) >= 0)
+		{
+			curIdx = resArray[(curIdx * 5) + 2];
+			response = eventArray[curIdx];
+		}
+
+		else if (findKeyword(statement, keyArray[(curIdx * 5) + 3]) >= 0)
+		{
+			curIdx = resArray[(curIdx * 5) + 3];
+			response = eventArray[curIdx];
+		}
+
+		else if (findKeyword(statement, keyArray[(curIdx * 5) + 4]) >= 0)
+		{
+			curIdx = resArray[(curIdx * 5) + 4];
 			response = eventArray[curIdx];
 		}
 
