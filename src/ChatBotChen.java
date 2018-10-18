@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -154,10 +155,33 @@ public class ChatBotChen {
 			gold += 20;
 		}
 
-		if (!choice1.equals("none")) {
+		if (choice2.equals("none")) {
 			System.out.println("You continue the journey alone and soon reach the village.");
 		} else {
 			System.out.println("You arrive at the village with the " + choice1);
+		}
+		System.out.println("You see the person who gave out the quest. He seems to be a common peasant, judging by his ragged outfit. You go up to him");
+		if (choice2.equals("none")){
+			System.out.println("Peasant: Hey, I thought I asked for a party of two. Whatever, I am only paying half for this incompetency! Anyways...");
+		}
+
+		while (true) {
+			statement = in.nextLine().toLowerCase();
+			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
+			String sceneAlt = "After a closer inspection, you see a short person whose gender or profession you could not identify at the corner of the room. Looks like you could 𝐡𝐢𝐫𝐞 the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧.";
+			String r = response(statement, scene);
+			if (r.equals("")) {
+				altResponse1(statement, sceneAlt);
+			} else {
+				transformIWantStatement(r);
+				if (in.nextLine().toLowerCase().contains("yes")) {
+					choice2 = r.substring(5);
+					break;
+				} else {
+					System.out.println("No? Okay.");
+					emotion2++;
+				}
+			}
 		}
 
 		System.out.println("Story is WIP, that is the end for now.");
