@@ -10,7 +10,7 @@ public class ChatBotJohan
 	private String inventory[] = {"", "", "", ""};
 	private int counter = 0;
 	private int memCounter = 0;
-	private String[] memory = {"", "", "", "", "", ""};
+	private String[] memory = {" ", " ", " ", " ", " ", " "};
 	private String[][] roomObs = {
 	    {"scissors", "You notice a pair of bloody scissors on the floor, useful for cutting string. You pocket it."},
         {"scissors", "You've already taken the scissors."},
@@ -104,12 +104,14 @@ public class ChatBotJohan
                                     inventory[counter] = roomUse[i][2];
                                     counter++;
                                     timer--;
+                                    System.out.println(timer + " minutes until midnight.");
                                     return;
                                 }
                                 else
                                 {
                                     System.out.println(roomUse[i][2]);
                                     timer--;
+                                    System.out.println(timer + " minutes until midnight.");
                                     return;
                                 }
                             }
@@ -147,32 +149,42 @@ public class ChatBotJohan
             }
             return;
         }
-        for (int i = 0; i < roomObs.length; i++) {
+        for (int i = 0; i < roomObs.length; i++)
+        {
             stop = 0;
             if (findKeyword(statement, roomObs[i][0], 0) != -1)
             {
                 for(int p = 0; p < memory.length; p++)
                 {
-                    if(memory[p].contains(roomObs[i][0]))
+                    if(roomObs[i][0].contains(memory[p]))
                     {
-                        System.out.println("AA");
-                        System.out.println(roomObs[i + 1][2]);
+                        System.out.println(roomObs[i + 1][1]);
                         timer--;
+                        System.out.println(timer + " minutes until midnight.");
                         return;
                     }
                     else
                     {
-                        System.out.println("AAAAA");
-                        System.out.println(roomObs[i][1]);
-                        memory[memCounter] = roomObs[p][0];
-                        timer--;
-                        return;
+                        if(i == 0 || i == 6)
+                        {
+                            if (roomObs[i][1].contains("You pocket it."))
+                            {
+                                inventory[counter] = roomObs[i][0];
+                                counter++;
+                            }
+                            System.out.println(roomObs[i][1]);
+                            memory[memCounter] = roomObs[i][0];
+                            timer--;
+                            System.out.println(timer + " minutes until midnight.");
+                            return;
+                        }
                     }
                 }
                 System.out.println(roomObs[i][1]);
                 if (roomObs[i][1].contains("You pocket it."))
                 {
                     inventory[counter] = roomObs[i][0];
+                    System.out.println("AAAH");
                     counter++;
                 }
                 timer--;
