@@ -9,6 +9,8 @@ public class ChatBotJohan
     private String usedOn;
 	private String inventory[] = {"", "", "", ""};
 	private int counter = 0;
+	private int memCounter = 0;
+	private String[] memory = {"", "", "", "", "", ""};
 	private String[][] roomObs = {
 	    {"scissors", "You notice a pair of bloody scissors on the floor, useful for cutting string. You pocket it."},
         {"scissors", "You've already taken the scissors."},
@@ -55,7 +57,7 @@ public class ChatBotJohan
         System.out.println("A clock on the wall is also ticking. You have 15 minutes until midnight.");
         Scanner in = new Scanner(System.in);
         String statement;
-        while (timer != 0 || !win)
+        while (timer != 0 && !win)
         {
             statement = in.nextLine();
             transformKeyword(statement);
@@ -83,29 +85,31 @@ public class ChatBotJohan
             {
                 used = statement.substring(findKeyword(statement, "use", 0) + 4, findKeyword(statement, "on", 0));
                 usedOn = statement.substring(findKeyword(statement, "on", 0) + 3);
-                for (int j = 0; j < inventory.length; j++)
+                used = used.trim();
+                usedOn = usedOn.trim();
+                used = used.toLowerCase();
+                usedOn = usedOn.toLowerCase();
+                for (String A : inventory)
                 {
-                    System.out.println(used);
-                    System.out.println(inventory[j]);
-                    if(used.equals(inventory[j]))
-                    if (inventory[j].equals(used))
+                    if(A.contains(used))
                     {
-                        System.out.println("HHHHHHHH");
                         stop++;
                         for(int i = 0; i < roomUse.length; i++)
                         {
-                            if(roomUse[i][0] == used && roomUse[i][1] == usedOn)
+                            if(used.contains(roomUse[i][0]) && usedOn.contains(roomUse[i][1]))
                             {
                                 if(roomUse[i].length > 3)
                                 {
                                     System.out.println(roomUse[i][3]);
                                     inventory[counter] = roomUse[i][2];
                                     counter++;
+                                    timer--;
                                     return;
                                 }
                                 else
                                 {
                                     System.out.println(roomUse[i][2]);
+                                    timer--;
                                     return;
                                 }
                             }
@@ -121,16 +125,16 @@ public class ChatBotJohan
                 stop = 0;
             }
             used = statement.substring(findKeyword(statement, "use", 0) + 1);
-            for (int j = 0; j < inventory.length; j++)
+            for (String A : inventory)
             {
-                if (inventory[j].equals(used))
+                if (used.contains(A))
                 {
                     stop++;
                     if (findKeyword(statement, "on", 0) != -1)
                     {
                         if (findKeyword(statement, "on", 0) == -1)
                         {
-                            System.out.println("What would you like to use the " + inventory[j] + " on?");
+                            System.out.println("What would you like to use the " + A + " on?");
                         }
                         return;
                     }
@@ -147,6 +151,24 @@ public class ChatBotJohan
             stop = 0;
             if (findKeyword(statement, roomObs[i][0], 0) != -1)
             {
+                for(int p = 0; p < memory.length; p++)
+                {
+                    if(memory[p].contains(roomObs[i][0]))
+                    {
+                        System.out.println("AA");
+                        System.out.println(roomObs[i + 1][2]);
+                        timer--;
+                        return;
+                    }
+                    else
+                    {
+                        System.out.println("AAAAA");
+                        System.out.println(roomObs[i][1]);
+                        memory[memCounter] = roomObs[p][0];
+                        timer--;
+                        return;
+                    }
+                }
                 System.out.println(roomObs[i][1]);
                 if (roomObs[i][1].contains("You pocket it."))
                 {
