@@ -40,14 +40,14 @@ public class ChatBotChen {
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
-            String[] scene = {"get a quest", "pick gold"};
-            String sceneAlt = "A glitter on the floor catches your eye. Some unfortunate fellow dropped a pouch of coins. Seems like you can 𝐩𝐢𝐜𝐤 up the 𝐠𝐨𝐥𝐝";
-			String r = response(statement,scene);
-			if(r.equals("")){
+			String[] scene = {"get a quest", "pick gold"};
+			String sceneAlt = "A glitter on the floor catches your eye. Some unfortunate fellow dropped a pouch of coins. Seems like you can 𝐩𝐢𝐜𝐤 up the 𝐠𝐨𝐥𝐝";
+			String r = response(statement, scene);
+			if (r.equals("")) {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
-				if(in.nextLine().toLowerCase().contains("yes")){
+				if (in.nextLine().toLowerCase().contains("yes")) {
 					choice1 = r.substring(4);
 					break;
 				} else {
@@ -59,9 +59,9 @@ public class ChatBotChen {
 
 		sceneReset();
 		//scene 2
-		if(choice1.equals(" gold")){
+		if (choice1.equals(" gold")) {
 			System.out.println("You pick up the pouch of gold. You count out 10 pieces in total. Not bad. You proceed to obtain a quest from the task board.");
-			gold+=10;
+			gold += 10;
 		}
 		System.out.println("One particular quest catches your eye. It seemed simple enough.");
 		System.out.println("Apparently there someone was kidnapped in a remote village nearby, and the reward is oddly exceptional, a whole 30 coins for a simple rescue mission.");
@@ -71,12 +71,12 @@ public class ChatBotChen {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
 			String sceneAlt = "After a closer inspection, you see a short person whose gender or profession you could not identify at the corner of the room. Looks like you could 𝐡𝐢𝐫𝐞 the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧.";
-			String r = response(statement,scene);
-			if(r.equals("")){
+			String r = response(statement, scene);
+			if (r.equals("")) {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
-				if(in.nextLine().toLowerCase().contains("yes")){
+				if (in.nextLine().toLowerCase().contains("yes")) {
 					choice2 = r.substring(5);
 					break;
 				} else {
@@ -91,9 +91,9 @@ public class ChatBotChen {
 		System.out.println("You offered to pay the " + choice2 + "  20 gold, but they said they'd only accept it after the job is done");
 		System.out.println("After a quick preparation, you head out to the remote village with the " + choice2 + ".");
 		System.out.println("On the road, your party runs into a wounded soldier. There seems to be some options, but you could always just 𝐥𝐞𝐚𝐯𝐞. What would you like to do?");
-		if(choice2.equals("knight")){
+		if (choice2.equals("knight")) {
 			System.out.println("Knight: He seems fatally wounded. It would be best to put him out of his 𝐞𝐧𝐝 𝐡𝐢𝐬 𝐦𝐢𝐬𝐞𝐫𝐲 right now, but it is up to you.");
-		} else if (choice2.equals("priest")){
+		} else if (choice2.equals("priest")) {
 			System.out.println("Priest: This man is severely wounded. I can 𝐡𝐞𝐚𝐥 𝐡𝐢𝐦, but it's not easy and I won't do it for free. I expect a double in my payment at the end of this.");
 		} else {
 			System.out.println("Mysterious Person: Hmm, this is a spirit in disguise. These beings come out during Halloween to test your good will, and will react accordingly. It is best that we do not interfere as they are hard to please. I do have some supplies that can 𝐭𝐫𝐞𝐚𝐭 𝐡𝐢𝐦, however, if you wish to.");
@@ -104,21 +104,21 @@ public class ChatBotChen {
 			String[] scene = new String[3];
 			scene[0] = "leave";
 			scene[1] = "steal";
-			if(choice2.equals("knight")){
+			if (choice2.equals("knight")) {
 				scene[2] = "end his misery";
-			} else if (choice2.equals("priest")){
+			} else if (choice2.equals("priest")) {
 				scene[2] = "heal him";
 			} else {
 				scene[2] = "treat him";
 			}
 			String sceneAlt = "The soldier is barely conscious. His gold pouch is within reach, and he does not seem to able stop you if you were to try and 𝐬𝐭𝐞𝐚𝐥 it";
-			String r = response(statement,scene);
-			if(r.equals("")){
+			String r = response(statement, scene);
+			if (r.equals("")) {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
-				if(in.nextLine().toLowerCase().contains("yes")){
-					choice3 = r.substring(0,3);
+				if (in.nextLine().toLowerCase().contains("yes")) {
+					choice3 = r.substring(0, 3);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -129,19 +129,38 @@ public class ChatBotChen {
 
 		sceneReset();
 		//scene4
-		if(choice3.equals("steal")){
+		if (choice3.equals("ste")) {
 			System.out.println("You reach for his pouch, but he suddenly teleports and appears behind you.");
 			System.out.println("???: You seem like an evil person. You don't deserve this.");
 			System.out.println("The soldier shapeshifts into a weird ghostlike creature and snatches all your gold before you could react. Then he disappears. How unfortunate!");
 			gold = 0;
-		} else if (choice3.equals("heal")){
+		} else if (choice3.equals("hea")) {
 			System.out.println("Priest: Okay, stand back. Give me some time to channel this spell.");
 			System.out.println("As the priest begins to channel some spell unfaimilar to you, the soldier stood up and shapeshifts into a weird ghostlike creature. It grabs the priest by her arm");
 			System.out.println("???: A priest should not be this greedy!");
 			System.out.println("In an instant, the creature disappears along with the priest, and you swear you could hear a scream from the distance... Oh well, looks like you'll have to move on without her.");
 			System.out.println("The priest's gold pouch, however, stayed behind. You decide that you might as well put it to use. You find a total of 10 gold in the pouch.");
-			gold+=10;
+			gold += 10;
+			choice2 = "none";
+		} else if (choice3.equals("end")) {
+			System.out.println("The knight nods and you proceed to put the soldier out of his misery.");
+			System.out.println("You take out your dagger and aim for his heart, but before your strike lands, the soldier suddenly vanishes.");
+			System.out.println("You and the knight could not comprehend what had just happened. Eventually you two decided to move on.");
+		} else if (choice3.equals("tre")) {
+			System.out.println("The mysterious person takes out their supply kit and prepares to treat the soldier in disguise.");
+			System.out.println("The soldier suddenly shapeshifts into its true form, a ghostlike creature. It stands tall.");
+			System.out.println("???: Interesting, you know my nature and still continue to treat me. Such deeds deserves to be rewarded");
+			System.out.println("The spirit disappears and leaves behind a pouch of gold. You count it and there appears to be 20 pieces.");
+			gold += 20;
 		}
+
+		if (!choice1.equals("none")) {
+			System.out.println("You continue the journey alone and soon reach the village.");
+		} else {
+			System.out.println("You arrive at the village with the " + choice1);
+		}
+
+		System.out.println("Story is WIP, that is the end for now.");
 	}
 
 	/**Resets the bot's patience after each scene
