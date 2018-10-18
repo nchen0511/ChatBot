@@ -24,7 +24,7 @@ public class ChatBotChen {
 	//scene array with different triggers for each ray
 	String scene[];
 	/**
-	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
+	 * Runs the conversation for this particular chatbot, goes through multiple while loops, each representing a scene in the story.
 	 *
 	 * @param statement the statement typed by the user
 	 */
@@ -36,6 +36,7 @@ public class ChatBotChen {
 		//scene 1
 		System.out.println("In the small town of Aerodale, it is the day of a holiday known to many as Halloween. What better way is there to celebrate other than to go on a quest?");
 		System.out.println("You enter the tavern, filled with many laughter and chatter. The atmosphere is cheerful. There are people talking about something different at every table. In the back of the dining hall is a task board where you may 𝐠𝐞𝐭 𝐚 𝐪𝐮𝐞𝐬𝐭.");
+
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
@@ -65,6 +66,7 @@ public class ChatBotChen {
 		System.out.println("One particular quest catches your eye. It seemed simple enough.");
 		System.out.println("Apparently there someone was kidnapped in a remote village nearby, and the reward is oddly exceptional, a whole 30 coins for a simple rescue mission.");
 		System.out.println("You decide to take the quest, but it requires a party of 2 members. You take a glance at the waiting section, two adventurers stood out to you. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Looks like you can 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭 or the 𝐩𝐫𝐢𝐞𝐬𝐭,");
+
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
@@ -96,13 +98,14 @@ public class ChatBotChen {
 		} else {
 			System.out.println("Mysterious Person: Hmm, this is a spirit in disguise. These beings come out during Halloween to test your good will, and will react accordingly. It is best that we do not interfere as they are hard to please. I do have some supplies that can 𝐭𝐫𝐞𝐚𝐭 𝐡𝐢𝐦, however, if you wish to.");
 		}
+
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 			String[] scene = new String[3];
 			scene[0] = "leave";
 			scene[1] = "steal";
 			if(choice2.equals("knight")){
-				scene[2] = "misery his misery";
+				scene[2] = "end his misery";
 			} else if (choice2.equals("priest")){
 				scene[2] = "heal him";
 			} else {
@@ -115,7 +118,7 @@ public class ChatBotChen {
 			} else {
 				transformIWantStatement(r);
 				if(in.nextLine().toLowerCase().contains("yes")){
-					choice3 = r.substring(4);
+					choice3 = r.substring(0,3);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -124,13 +127,36 @@ public class ChatBotChen {
 			}
 		}
 
+		sceneReset();
+		//scene4
+		if(choice3.equals("steal")){
+			System.out.println("You reach for his pouch, but he suddenly teleports and appears behind you.");
+			System.out.println("???: You seem like an evil person. You don't deserve this.");
+			System.out.println("The soldier shapeshifts into a weird ghostlike creature and snatches all your gold before you could react. Then he disappears. How unfortunate!");
+			gold = 0;
+		} else if (choice3.equals("heal")){
+			System.out.println("Priest: Okay, stand back. Give me some time to channel this spell.");
+			System.out.println("As the priest begins to channel some spell unfaimilar to you, the soldier stood up and shapeshifts into a weird ghostlike creature. It grabs the priest by her arm");
+			System.out.println("???: A priest should not be this greedy!");
+			System.out.println("In an instant, the creature disappears along with the priest, and you swear you could hear a scream from the distance... Oh well, looks like you'll have to move on without her.");
+			System.out.println("The priest's gold pouch, however, stayed behind. You decide that you might as well put it to use. You find a total of 10 gold in the pouch.");
+			gold+=10;
+		}
 	}
 
+	/**Resets the bot's patience after each scene
+	 *
+	 */
 	public void sceneReset(){
 		hi = false;
 		emotion1 = 0;
 		emotion2 = 0;
 	}
+
+	/**Displays gold amount and a comment depending on bot's patience
+	 *
+	 * @return gold + comment
+	 */
 	public String checkGold(){
 		emotion1++;
 		int num = (int)(Math.random()*3);
@@ -147,7 +173,12 @@ public class ChatBotChen {
 		}
 	    return "Your party currently has " + gold + " gold piece(s). " + comment;
     }
-    public String invalidAction(){
+
+	/**Tells the user to pick a valid action, along with a sarcastic comment.
+	 *
+	 * @return
+	 */
+	public String invalidAction(){
 		emotion2++;
 		int num = (int)(Math.random()*3);
 		String comment = "";
@@ -164,7 +195,12 @@ public class ChatBotChen {
 	    return "Please pick a valid action (in bold). " + comment;
     }
 
-    public String mock(String statement){
+	/**Mocks the user by returning the input with capitalizations for every other letter,
+	 *
+	 * @param statement
+	 * @return
+	 */
+	public String mock(String statement){
 		String newStr = "";
 		for(int i = 0; i < statement.length();i++){
 			if(i%2==0){
@@ -176,6 +212,12 @@ public class ChatBotChen {
 		return newStr;
 	}
 
+	/**Looks for scene keywords or greetings in user input.
+	 *
+	 * @param statement
+	 * @param keyword
+	 * @return
+	 */
 	public String response(String statement, String[] keyword) {
 		for (int i = 0; i < keyword.length; i++) {
 			if (statement.contains(keyword[i])) {
@@ -194,6 +236,11 @@ public class ChatBotChen {
 		return "";
 	}
 
+	/**Looks for alternative keywords if none found in response()
+	 *
+	 * @param statement
+	 * @param sceneAlt
+	 */
 	public void altResponse1(String statement, String sceneAlt){
         if(statement.contains("observe")){
             System.out.println(sceneAlt);
