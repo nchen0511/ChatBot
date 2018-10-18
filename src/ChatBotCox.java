@@ -24,7 +24,7 @@ public class ChatBotCox
 			//N5
 			"As you near her she turns and spots you and immediately lunges towards you screaming your name in relief.  She scolds you for having run off so quickly without having a second thought about staying close to her.  She decides that as a punishment you're done trick-or-treating for the night and immediately takes you and your brother home.  You spend the rest of the night looking out the window at the other kids in your neighborhood enjoying there nights until finally falling asleep in your bed.\nTHE END. Say \"done\" to play another story.",
 			//N6
-			"Looking for your mother you begin to panick as you realize how dense the crowd of people is around you, and being a nine year old kid, you can't see over the heads of anyone around you.  Do you decide to go left or right to search for your mom?",
+			"Looking for your mother you begin to panic as you realize how dense the crowd of people is around you, and being a nine year old kid, you can't see over the heads of anyone around you.  Do you decide to go left or right to search for your mom?",
 			//N7
 			"Deciding to head right, you bump into your older brother who gives you an affectionate nuggie, which you don't like at all.  It seems as though he lost track of mom too though he was probably trying to do that.  He asks if you want to hang out and trick-or-treat with him for the rest of the night.",
 			//N8
