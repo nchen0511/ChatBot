@@ -20,7 +20,7 @@ public class ChatBotRunner
 
 
 		Scanner in = new Scanner (System.in);
-		System.out.println("Welcome to the chatbot, nice to meet you. Please pick a number from 1 ~ 4.");
+		System.out.println("Hi, nice to meet you, I'm the Halloween Witch Bot. What do you want to do, you can go on an adventure or we can just talk.");
 
 
 		while (true)
@@ -28,16 +28,21 @@ public class ChatBotRunner
 			//Use Logic to control which chatbot is handling the conversation\
 			//This example has only chatbot1
 			String statement = in.nextLine();
-			if(statement.contains("1")){
-				chatbot1.chatLoop(statement);
-			} else if(statement.contains("2")) {
+			if(statement.contains("adventure")){
+				System.out.println("What do want to do, you can go \"trick-or-treating\", you can spend your halloween in a \"fantasy world\" or you can try to \"escape a serial killer\".");
+				statement = in.nextLine();
+				if (statement.contains("trick-or-treating"))
+					chatbot3.chatLoop(statement);
+				else if (statement.contains("fantasy"))
+					chatbot1.chatLoop(statement);
+				else if (statement.contains("escape")||statement.contains("killer")||statement.contains("murderer"))
+					chatbot4.chatLoop(statement);
+				else
+					System.out.println("Please choose one of the adventures");
+			} else if(statement.contains("talk")) {
 				chatbotDego.chatLoop(statement);
-			} else if(statement.contains("3")){
-				chatbot3.chatLoop(statement);
-			} else if(statement.contains("4")){
-				chatbot4.chatLoop(statement);
 			} else {
-				System.out.println("Please pick a number from 1 ~ 4.");
+				System.out.println("Please choose either talking or going on an adventure.");
 			}
 		}
 	}
