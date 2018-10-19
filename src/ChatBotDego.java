@@ -1,3 +1,4 @@
+//Diego Cordova
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,8 +26,6 @@ public class ChatBotDego
 
 
 		while (!statement.equals("Bye")) {
-			System.out.println(game);
-
 			statement = in.nextLine();
 			//getResponse handles the user reply
 
