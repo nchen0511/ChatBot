@@ -5,8 +5,8 @@ import java.util.Scanner;
 /**
  * A program to carry on conversations with a human user.
  * This version:
- * @author Brooklyn Tech CS Department
- * @version September 2018
+ * @author Nick Chen
+ * @version October 19 2018
  */
 public class ChatBotChen {
 	//emotion starts at 0, which is neutral, increases whenever user does not proceed to the next scene, becomes more impatient
