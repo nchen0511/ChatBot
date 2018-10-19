@@ -1,7 +1,13 @@
+/**
+ * Serial Killer Escape by Johan Avila
+ */
 import java.util.Scanner;
 
 public class ChatBotJohan
 {
+    /**
+     * initializes values
+     */
 	private int timer = 10;
 	private boolean win = false;
     private int stop = 0;
@@ -54,6 +60,9 @@ public class ChatBotJohan
 
     public void chatLoop(String statemen)
     {
+        /**
+         * resets values, explains game, then begins chat loop
+         */
         timer = 10;
         win = false;
         stop = 0;
@@ -95,6 +104,9 @@ public class ChatBotJohan
 
 	private void transformKeyword(String statement)
     {
+        /**
+         * checks statement and does something different based on keywords
+         */
         statement = statement.trim();
         statement = statement.toLowerCase();
         stop = 0;
@@ -228,6 +240,9 @@ public class ChatBotJohan
     }
     private int findKeyword(String statement, String goal, int startPos)
     {
+        /**
+         * returns value based on if keyword is found or not
+         */
         String phrase = statement.trim().toLowerCase();
         goal = goal.toLowerCase();
         int psn = phrase.indexOf(goal, startPos);
@@ -255,6 +270,10 @@ public class ChatBotJohan
     }
     private String timeCheck(int time)
     {
+        /**
+         * timeCheck(int time)
+         * returns string based on how much time is left
+         */
         if(time == 1)
             return time + " minute until midnight. You feel an overwhelming sense of dread.";
         if(time == 0)
