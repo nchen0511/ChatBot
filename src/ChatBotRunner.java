@@ -20,7 +20,7 @@ public class ChatBotRunner
 
 
 		Scanner in = new Scanner (System.in);
-		System.out.println("Hi, nice to meet you, I'm the Halloween Witch Bot. What do you want to do, you can go on an adventure or we can just talk.");
+		System.out.println("Hi, nice to meet you, I'm the Halloween Witch Bot. What do you want to do, you can go on an \"adventure\" or we can just \"talk\".");
 
 
 		while (true)
