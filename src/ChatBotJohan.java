@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class ChatBotJohan
 {
-	private int timer = 15;
+	private int timer = 10;
 	private boolean win = false;
     private int stop = 0;
     private String used;
@@ -44,7 +44,7 @@ public class ChatBotJohan
             {"code", "knife", "This code is only good for one thing: the safe."},
             {"code", "safe", "You enter the code into the safe. Inside, there is a key! It must be for the door!", "key"},
             {"code", "drawer", "This code is only good for one thing: the safe."},
-            {"key", "door", "You enter the key into the door. Victory! You run as fast as you can from the house."},
+            {"key", "door", "You enter the key into the door. Victory! You run as fast as you can from the house.", "win"},
             {"key", "window", "This key is only good for one thing: the door."},
             {"key", "scissors", "This key is only good for one thing: the door."},
             {"key", "knife", "This key is only good for one thing: the door."},
@@ -54,20 +54,36 @@ public class ChatBotJohan
 
     public void chatLoop(String statemen)
     {
+        timer = 10;
+        win = false;
+        stop = 0;
+        used = " ";
+        usedOn = " ";
+        for(int k = 0; k < inventory.length;k++)
+            inventory[k] = " ";
+        sCount = 0;
+        dCount = 0;
+        counter = 0;
+        memCounter = 0;
+        for(int t = 0; t < inventory.length;t++)
+            memory[t] = " ";
         System.out.println("How to play: type in what you observe and find a way out before you're out of time!");
         System.out.println("Type 'inventory' to check your inventory. Type 'use <item> on <thing>' to use items!");
         System.out.println("You awaken in a dimly lit room. You have no idea of your whereabouts. Panicking, you look around for a way out.");
         System.out.println("You observe a pair of scissors, a window, a door, a rusty knife, a safe, and a drawer.");
-        System.out.println("A clock on the wall is also ticking. You have 15 minutes until midnight.");
+        System.out.println("A clock on the wall is also ticking. You have 10 minutes until midnight.");
         Scanner in = new Scanner(System.in);
         String statement;
         while (timer != 0 && !win)
         {
             statement = in.nextLine();
             transformKeyword(statement);
+            System.out.println(win);
             if(win)
             {
                 System.out.println("You finally escaped!");
+                System.out.println("Congrats! You are now back at the witch's house. Type 'talk' or 'adventure'");
+                return;
             }
         }
         if(timer == 0)
@@ -75,10 +91,6 @@ public class ChatBotJohan
             System.out.println("It's too late...");
             System.out.println("You scream as a man crashes through the wall, chainsaw in hand.");
             System.out.println("Nobody hears your screams as he saws you in half. It all goes hazy...");
-        }
-        if(win)
-        {
-            return;
         }
     }
 
@@ -118,13 +130,22 @@ public class ChatBotJohan
                             {
                                 if(roomUse[i].length > 3)
                                 {
-                                    System.out.println(roomUse[i][2]);
-                                    inventory[counter] = roomUse[i][3];
-                                    counter++;
-                                    timer--;
-                                    System.out.println(timeCheck(timer));
-                                    stop = 0;
-                                    return;
+                                    if(roomUse[i][3].contains("win"))
+                                    {
+                                        win = true;
+                                        System.out.println(roomUse[i][2]);
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        System.out.println(roomUse[i][2]);
+                                        inventory[counter] = roomUse[i][3];
+                                        counter++;
+                                        timer--;
+                                        System.out.println(timeCheck(timer));
+                                        stop = 0;
+                                        return;
+                                    }
                                 }
                                 else
                                 {
@@ -132,11 +153,6 @@ public class ChatBotJohan
                                             sCount = 1;
                                     if(usedOn.contains("drawer"))
                                             dCount = 1;
-                                    if(roomUse[i][2].contains("Victory!"))
-                                    {
-                                        win = true;
-                                        return;
-                                    }
                                     System.out.println(roomUse[i][2]);
                                     timer--;
                                     System.out.println(timeCheck(timer));
