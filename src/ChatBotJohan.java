@@ -78,7 +78,6 @@ public class ChatBotJohan
         {
             statement = in.nextLine();
             transformKeyword(statement);
-            System.out.println(win);
             if(win)
             {
                 System.out.println("You finally escaped!");
