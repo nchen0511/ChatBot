@@ -1,3 +1,5 @@
+//Alexander Cox
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,7 +14,14 @@ public class ChatBotCox
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	private int emotion = 0;
 	private int curIdx = 0;
-    private static String[] eventArray = {"Your 9 years old and it's once again your favorite time of year; October.  You've spent a full month before hand picking out your costume for Halloween. Tonight is finally the big night and your Mom is taking you out trick-or-treating along with your older brother who decided to wear the same Batman costume he did last year.\n You leave your house you can see the street filled with children running across the streets and between houses. Filled with excitement you dart through the crowds of children to the house across the street eager to collect your candy, but before you know it you realize you've been separated from your mom.  What do you do?",
+	/**
+	 * Each of the following arrays outline different factors of the story and run parallel to each other.
+	 *
+	 * eventArray is a list of all the descriptions of the events that occur within the story labeled by comments with their indexes
+	 * keyArray is a list of key words that a searched for within the user respond to determine there action and the corresponding result.  There are five keywords for each event.
+	 * resArray is a list of the indexes that each key word in key array will lead to if the word is found.
+	 */
+	private static String[] eventArray = {"Your 9 years old and it's once again your favorite time of year; October.  You've spent a full month before hand picking out your costume for Halloween. Tonight is finally the big night and your Mom is taking you out trick-or-treating along with your older brother who decided to wear the same Batman costume he did last year.\n You leave your house you can see the street filled with children running across the streets and between houses. Filled with excitement you dart through the crowds of children to the house across the street eager to collect your candy, but before you know it you realize you've been separated from your mom.  What do you do?",
 			//N1
 			"Telling yourself that you can find your mom later, you continue on to the house where you encounter another group of kids like yourself receiving candy from the old lady in the doorway.  When it's finally your turn you eagerly approach and say \"trick-or-treat!\".  As the old lady gives you some Reese's Peanut Butter cups she notices that you you don't have any adult with you and asks if you've lost your parents and want to come inside while she calls around and tries to figure out where they are?",
 			//N2
