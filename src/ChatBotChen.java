@@ -16,11 +16,14 @@ public class ChatBotChen {
 	//gold will be a variable used throughout the adventure
 	int gold = 20;
 
-	//variables to remember conversation
+	//variables to remember conversation and events
 	boolean hi = false;
+	boolean ex = false;
 	String choice1;
 	String choice2;
 	String choice3;
+	String choice4;
+	String choice5;
 
 	//scene array with different triggers for each ray
 	String scene[];
@@ -41,15 +44,15 @@ public class ChatBotChen {
 		while (true) {
 			statement = in.nextLine().toLowerCase();
 
-			String[] scene = {"get a quest", "pick gold"};
-			String sceneAlt = "A glitter on the floor catches your eye. Some unfortunate fellow dropped a pouch of coins. Seems like you can 𝐩𝐢𝐜𝐤 up the 𝐠𝐨𝐥𝐝";
+			String[] scene = {"get a quest", "pick up the gold"};
+			String sceneAlt = "A glitter on the floor catches your eye. Some unfortunate fellow dropped a pouch of coins. Seems like you can 𝐩𝐢𝐜𝐤 𝐮𝐩 𝐭𝐡𝐞 𝐠𝐨𝐥𝐝";
 			String r = response(statement, scene);
 			if (r.equals("")) {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
 				if (in.nextLine().toLowerCase().contains("yes")) {
-					choice1 = r.substring(4);
+					choice1 = r.substring(0,4);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -60,12 +63,12 @@ public class ChatBotChen {
 
 		sceneReset();
 		//scene 2
-		if (choice1.equals(" gold")) {
+		if (choice1.equals("pick")) {
 			System.out.println("You pick up the pouch of gold. You count out 10 pieces in total. Not bad. You proceed to obtain a quest from the task board.");
 			gold += 10;
 		}
 		System.out.println("One particular quest catches your eye. It seemed simple enough.");
-		System.out.println("Apparently there someone was kidnapped in a remote village nearby, and the reward is oddly exceptional, a whole 30 coins for a simple rescue mission.");
+		System.out.println("Apparently someone was kidnapped in a remote village nearby, and the reward is oddly exceptional, a whole 30 coins for a simple rescue mission.");
 		System.out.println("You decide to take the quest, but it requires a party of 2 members. You take a glance at the waiting section, two adventurers stood out to you. One bulky man was sitting down and drinking, you could tell he was about to ask for another. He was most likely a knight, but you do not see his sword. Across from him was a priest who seemed shy and timid. Something about her told you she was experienced. Looks like you can 𝐡𝐢𝐫𝐞 the 𝐤𝐧𝐢𝐠𝐡𝐭 or the 𝐩𝐫𝐢𝐞𝐬𝐭,");
 
 		while (true) {
@@ -89,7 +92,7 @@ public class ChatBotChen {
 
 		sceneReset();
 		//scene 3
-		System.out.println("You offered to pay the " + choice2 + "  20 gold, but they said they'd only accept it after the job is done");
+		System.out.println("You offered to pay the " + choice2 + ", but they said they'd only accept it after the job is done");
 		System.out.println("After a quick preparation, you head out to the remote village with the " + choice2 + ".");
 		System.out.println("On the road, your party runs into a wounded soldier. There seems to be some options, but you could always just 𝐥𝐞𝐚𝐯𝐞. What would you like to do?");
 		if (choice2.equals("knight")) {
@@ -150,32 +153,42 @@ public class ChatBotChen {
 		} else if (choice3.equals("tre")) {
 			System.out.println("The mysterious person takes out their supply kit and prepares to treat the soldier in disguise.");
 			System.out.println("The soldier suddenly shapeshifts into its true form, a ghostlike creature. It stands tall.");
-			System.out.println("???: Interesting, you know my nature and still continue to treat me. Such deeds deserves to be rewarded");
-			System.out.println("The spirit disappears and leaves behind a pouch of gold. You count it and there appears to be 20 pieces.");
+			System.out.println("???: Interesting, you know my nature and still decide to approach. Such bravery deserves to be rewarded");
+			System.out.println("The spirit disappears and leaves behind a pouch of gold. You count it and there are 20 pieces in total.");
 			gold += 20;
 		}
 
 		if (choice2.equals("none")) {
 			System.out.println("You continue the journey alone and soon reach the village.");
 		} else {
-			System.out.println("You arrive at the village with the " + choice1);
+			System.out.println("You arrive at the village with the " + choice2);
 		}
 		System.out.println("You see the person who gave out the quest. He seems to be a common peasant, judging by his ragged outfit. You go up to him");
 		if (choice2.equals("none")){
 			System.out.println("Peasant: Hey, I thought I asked for a party of two. Whatever, I am only paying half for this incompetency! Anyways...");
 		}
-
+		System.out.println("The peasant tells you that his two kids were kidnapped and taken towards the nearby cave. Before you start to head towards the cave, a merchant approaches you.");
+		System.out.println("Merchant: Howdy, adventurer! Looks like you could use a sword! Well you're in luck, because I have this legendary Excalibur right here, for the low price of 40 gold!");
 		while (true) {
+			String[] scene = new String[3];
+			scene[0] = "leave";
+			scene[1] = "snatch";
+			if(gold<40){
+				System.out.println("Merchant: Wait... nevermind you're dirt poor. Just 𝐥𝐞𝐚𝐯𝐞!");
+				scene[2] = "leave";
+			} else {
+				System.out.println("Well, what do you say, would you like to 𝐛𝐮𝐲 it?");
+				scene[2] = "buy";
+			}
 			statement = in.nextLine().toLowerCase();
-			String[] scene = {"hire knight", "hire priest", "hire mysterious person"};
-			String sceneAlt = "After a closer inspection, you see a short person whose gender or profession you could not identify at the corner of the room. Looks like you could 𝐡𝐢𝐫𝐞 the 𝐦𝐲𝐬𝐭𝐞𝐫𝐢𝐨𝐮𝐬 𝐩𝐞𝐫𝐬𝐨𝐧.";
+			String sceneAlt = "The snooty merchant is about to leave. It looks like you could try to 𝐬𝐧𝐚𝐭𝐜𝐡 the sword or just 𝐥𝐞𝐚𝐯𝐞.";
 			String r = response(statement, scene);
 			if (r.equals("")) {
 				altResponse1(statement, sceneAlt);
 			} else {
 				transformIWantStatement(r);
 				if (in.nextLine().toLowerCase().contains("yes")) {
-					choice2 = r.substring(5);
+					choice4 = r.substring(0,3);
 					break;
 				} else {
 					System.out.println("No? Okay.");
@@ -184,7 +197,64 @@ public class ChatBotChen {
 			}
 		}
 
-		System.out.println("Story is WIP, that is the end for now.");
+		sceneReset();
+		//scene 5
+		if(choice4.equals("sna")){
+			System.out.println("You try to snatch the sword away from him, but he quickly turns around and tries to punch you. You quickly step to the side and avoid his fist.");
+			if(!choice2.equals("none")){
+				System.out.println("However, your companion was not as lucky as you. The merchant ends up hitting the " + choice2 + " because you dodged. The merchant seemed weak, but somehow that ended up being a killing blow. Shocked, you quickly run away");
+				choice2 = "none";
+			}
+		} else if(choice4.equals("buy")){
+			System.out.println("Merchant: Pleasure doing business with you!");
+			ex=true;
+			gold-=40;
+		}
+
+		System.out.println("You arrive at the cave. It seems to be pretty peaceful, but regardless you still keep your guard up.");
+		if(!choice2.equals("none")) {
+			System.out.println("You enter the cave alone...");
+		} else {
+			System.out.println("You enter the cave with the " + choice2);
+		}
+		System.out.println("You soon reach the end of the cave. The peasant's children are there, but they are being guarded by a giant pumpkin. You strike at the pumpkin, but it hardly left a scratch. Now the pumpkin is angry.");
+		while (true) {
+			String[] scene = new String[1];
+			String sceneAlt;
+			if(ex){
+				scene[0] = "use excalibur";
+				sceneAlt = "It looks like you don't have any other options than to use the 𝐮𝐬𝐞 𝐞𝐱𝐜𝐚𝐥𝐢𝐛𝐮𝐫";
+			} else {
+				scene[0] = "run";
+				sceneAlt = "It looks like you don't have any other options than to 𝐫𝐮𝐧";
+			}
+			statement = in.nextLine().toLowerCase();
+			String r = response(statement, scene);
+			if (r.equals("")) {
+				altResponse1(statement, sceneAlt);
+			} else {
+				transformIWantStatement(r);
+				if (in.nextLine().toLowerCase().contains("yes")) {
+					choice5 = r.substring(0,3);
+					break;
+				} else {
+					System.out.println("No? Okay.");
+					emotion2++;
+				}
+			}
+		}
+
+		if(choice5.equals("run")){
+			System.out.println("You decide to run, but the pumpkin is as fast as you.");
+			if(choice2.equals("none")){
+				System.out.println("You tried your best, but you could not outrun the giant pumpkin. You never reached the end of the cave.");
+			} else {
+				System.out.println("Escape seemed impossible, but the " + choice2 + " decided to stay behind and sacrifice themself. Thanks to them, you made it out alive.");
+			}
+		} else {
+			System.out.println("You strike the pumpkin with shady merchant's sword. Somehow, it worked and the pumpkin was defeated. You rescued the children and returned to the peasant");
+		}
+		System.out.println("And that concludes your adventure.");
 	}
 
 	/**Resets the bot's patience after each scene
