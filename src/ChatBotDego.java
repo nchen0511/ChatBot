@@ -24,22 +24,21 @@ public class ChatBotDego
 		System.out.println (getGreeting());
 
 
-		while (!statement.equals("Bye"))
-		{
-
+		while (!statement.equals("Bye")) {
+			System.out.println(game);
 
 			statement = in.nextLine();
 			//getResponse handles the user reply
-            while (!statement.equalsIgnoreCase("quit")){
-            if (game == true) {
-                System.out.println(getResponseGame(statement));
-            }
-        }
+
+			if (game == true) {
+				while (!statement.equalsIgnoreCase("quit")) {
+					System.out.println(getResponseGame(statement));
+
+				}
+			}
 			System.out.println(getResponse(statement));
-
-
 		}
-    // To use transform methods only in certain conditions like in a game make another method similar to getresponse and then make an if statement in chat loop that would check for the state and if its true it will use the second get response methof
+
 	}
 	/**
 	 * Get a default greeting
@@ -97,21 +96,38 @@ public class ChatBotDego
 					Random x = new Random();
 					int index = x.nextInt(randomhalloweenJokes.length);
 					System.out.println(getJoke(index));
+					if(answer.nextLine().equals(haloweenJokeAnswers[index])){
+						response = "You better have not looked that up on the interwebs.";
+						emotion--;
+					}
+					else{
+						response = haloweenJokeAnswers[index];
+					}
 				}
+				response = "what do you want to do then.";
             }
             if(response.equals("Would you like to play the potion maker game?")){
 				System.out.println(response);
 				if(answer.nextLine().equals("yes")){
 					game = true;
-					response = ("Ok in this game you give me 10 items to put into my random container and i will create a potion with your 10 items, to stop playing the game just say quit");
+					System.out.println("Ok in this game you give me 10 items to put into my random container and i will create a potion with your 10 items, to stop playing the game just say quit");
 				}
-				response = "ok mr. boring what do you want to do then?";
+				else {
+					response = "ok mr. boring what do you want to do then?";
+				}
 			}
 			if(response.equals("What are you going as for halloween.")){
 				System.out.println(response);
-				costume[1] = answer.nextLine();
+				costume[0] = answer.nextLine();
 				if(answer.nextLine().equalsIgnoreCase("spiderman")||answer.nextLine().equalsIgnoreCase("batman")||answer.nextLine().equalsIgnoreCase("superman")){
 					response = "Thats pretty boring";
+					System.out.println(costume[0]);
+					emotion--;
+				}
+				else{
+					response = "Thats a creative costume idea.";
+					System.out.println(costume[0]);
+					emotion++;
 				}
 			}
 		}
@@ -125,23 +141,46 @@ public class ChatBotDego
 	    if(statement.length() == 0){
 	        response = "Did you mean to press enter?";
         }
-        else if(findKeyword(statement, "I want to", 0) >= 0){
-            response = transformAction(statement);
-        }
-        else if(findKeyword (statement, "add") >= 0){
-            response = transformAdd(statement);
-        }
-        else if(findKeyword (statement, "remove") >= 0){
-            response = transformRemove(statement);
-		}
+        else if(findKeyword(statement, "I want to", 0) >= 0) {
+			Scanner answer = new Scanner(System.in);
+			response = transformAction(statement);
+			if(findKeyword(statement, "view") >= 0){
+				System.out.println("This is what is currently in the " + potType +".");
+				System.out.println(potion[0]);
+				System.out.println(potion[1]);
+				System.out.println(potion[2]);
+				System.out.println(potion[3]);
+				System.out.println(potion[4]);
+				System.out.println(potion[5]);
+				System.out.println(potion[6]);
+				System.out.println(potion[7]);
+				System.out.println(potion[8]);
+				System.out.println(potion[9]);
+			}
+			else if (findKeyword(statement, "add") >= 0) {
+				response = transformAdd(statement);
+			}
+			else if (findKeyword(statement, "remove") >= 0) {
+				response = transformRemove(statement);
+			}
+			else if (findKeyword(statement, "finish") >= 0) {
+				System.out.println(transformfinish(statement));
+				if (answer.nextLine().equals("yes")) {
+					response = obtainpotion(statement);
+				for(int i = 0; i < potion.length; i++){
+						potion[i] = "";
+					}
+				}
+			}
 
+		}
         return response;
     }
 
-   // public String getpotion(String statement){
-
-
-
+    public String obtainpotion(String statement){
+		Random r = new Random ();
+		return randomPotionNames[r.nextInt(randomNeutralResponses.length)];
+	}
 
     /**
 	 * Take a statement with "I want to <something>." and transform it into
@@ -415,5 +454,6 @@ public class ChatBotDego
 	private String [] potTypes = {"pot", "saucepan", "stewpot", "kettle", "jar", "crock", "vessel", "crucible"};
 	private String [] potion = new String[10];
 	private String [] costume = new String[1];
+	private String [] randomPotionNames = {"Apple Juice","Orange Juice", "Soy Sauce", "BBQ Sauce", "Mysterious Yogurt", "Orange Soda", "Special Sauce", "Worcestshire Sauce", "Sauce", "Tomato Sauce", "Something Foul", "Strawberry Jam"};
 
 }
