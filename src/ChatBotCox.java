@@ -18,13 +18,13 @@ public class ChatBotCox
 			//N2
 			"Politely refusing the old lady's request you again wonder if you should try and find your mother.",
 			//N3
-			"Standing on the crowded street under the light of a street lamp you hvae trouble deciding between going left or right.",
+			"Standing on the crowded street under the light of a street lamp you have trouble deciding between going left or right.",
 			//N4
 			"Deciding to head left, you spot your mother who looks frantic as she looks through the crowd presumably looking for you.  Do you approach her?",
 			//N5
 			"As you near her she turns and spots you and immediately lunges towards you screaming your name in relief.  She scolds you for having run off so quickly without having a second thought about staying close to her.  She decides that as a punishment you're done trick-or-treating for the night and immediately takes you and your brother home.  You spend the rest of the night looking out the window at the other kids in your neighborhood enjoying there nights until finally falling asleep in your bed.\nTHE END. Say \"done\" to play another story.",
 			//N6
-			"Looking for your mother you begin to panic as you realize how dense the crowd of people is around you, and being a nine year old kid, you can't see over the heads of anyone around you.  Do you decide to go left or right to search for your mom?",
+			"Looking for your mother you begin to panic as you realize how dense the crowd of people is around you, and being a nine year old kid, you can't see over the heads of anyone around you.  Which direction do you go to search for your mom?",
 			//N7
 			"Deciding to head right, you bump into your older brother who gives you an affectionate nuggie, which you don't like at all.  It seems as though he lost track of mom too though he was probably trying to do that.  He asks if you want to hang out and trick-or-treat with him for the rest of the night.",
 			//N8
@@ -40,7 +40,7 @@ public class ChatBotCox
 			//N13
 			"Successfully sneaking away from your mother you come to side of the street with an man on his porch attempting to hand out apples to kids who pass by, but they all seem to be ignoring him in favor of actual candy.  Do you want apples?",
 			//N14
-			"Deciding that you might want to be at least a little bit healthy on a night like tonight you approach the man and say \"trick-or-treat!\", apparently overjoyed to actually have a kid who wants something other that candy he proudly hands you the apple and says to have a nice night.  Now which way do you go down the street, left or right?",
+			"Deciding that you might want to be at least a little bit healthy on a night like tonight you approach the man and say \"trick-or-treat!\", apparently overjoyed to actually have a kid who wants something other that candy he proudly hands you the apple and says to have a nice night.  Now which way do you go down the street?",
 			//N15
 			"Deciding that tonight is not the night for apples, you instead turn around only to find your angry mother facing you with her hands on her hips.  She scolds you for having run off so quickly without having a second thought about staying close to her.  She decides that as a punishment you're done trick-or-treating for the night and immediately takes you and your brother home.  You spend the rest of the night looking out the window at the other kids in your neighborhood enjoying there nights until finally falling asleep in your bed.\nTHE END.\" Say \"done\" to play another story.",
 			//16
@@ -50,45 +50,45 @@ public class ChatBotCox
 			//18
 			"You sit on the sofa waiting for about 15 minutes in silence, you finally hear the doorbell ring and the old lady returns saying that it must be your mother.  As she opens the door you see your moms familiar face look in at yours as relief washes over her face as she goes to hug you.  She quickly however becomes angry and she scolds you for having run off so quickly without having a second thought about staying close to her.  She immediately takes you and your brother home where you spend the rest of the night looking out the window longingly at those still trick or treating.\nTHE END.\" Say \"done\" to play another story."
     };
-    private static String[] keyArray = {"candy", "mom", , , ,//K0
-			"no", "yes", , , , //K1
-			"candy", "mom", , , , //K2
-			"left", "right", , , , //K3
-			"yes", "no", , , , //K4
-			null, null, , , , //K5
-			"left", "right", , , , //K6
-			"no", "yes", , , , //K7
-			"popular", "unpopular", , , , //K8
-			"mom", "candy", , , , //K9
-			"yes", "no", , , , //K10
-			"candy", "wait", , , , //K11
-			null, null, , , , //K12
-			"yes", "no", , , , //K13
-			"left", "right", , , , //K14
-			null, null, , , , //K15
-			null, null, , , , //K16
-			"yes", "no", , , , //K17
-			null, null , , , //18
+    private static String[] keyArray = {"candy", "mom", "her", "keep", "house",//K0
+			"no", "yes", "inside","leave","run", //K1
+			"candy", "mom", "do", "don't", "no", //K2
+			"left", "right",null , null, null, //K3
+			"yes", "no", "sneak", "away", "towards", //K4
+			null, null, null, null, null, //K5
+			"left", "right", "forwards", "backwards", "straight", //K6
+			"no", "yes", "stay", "leave", "don't", //K7
+			"popular", "unpopular", "with", "without", "people", //K8
+			"mom", "candy", "left", "right", "straight", //K9
+			"yes", "no", "sneak", "away", "towards", //K10
+			"candy", "wait", "nothing", "eat", "don't", //K11
+			null, null, null, null, null, //K12
+			"yes", "no", "don't", "candy", "want", //K13
+			"left", "right", "forwards", "backwards", "straight", //K14
+			null, null, null, null, null, //K15
+			null, null, null, null, null, //K16
+			"yes", "no", "don't", "candy", "want", //K17
+			null, null, null, null, //18
     };
-    private static int[] resArray = {1,6,//R0
-			2,11, , , ,//R1
-			3,10, , , ,//R2
-			4,7, , , ,//R3
-			5,13, , , ,//R4
-			12,12, , , ,//R5
-			4,7, , , ,//R6
-			8,16, , , ,//R7
-			9,17, , , ,//R8
-			10,17, , , ,//R9
-			5,13, , , ,//R10
-			12,18, , , ,//R11
-			12,12, , , ,//R12
-			14,15, , , ,//R13
-			4,7, , , ,//R14
-			15,15, , , ,//R15
-			16,16, , , ,//R16
-			14,15, , , ,//R17
-			18,18 , , ,//18
+    private static int[] resArray = {1,6,6,1,1,//R0
+			2,11,11,2,2,//R1
+			3,10,10,3,3,//R2
+			4,7,0,0,0,//R3
+			5,13,13,13,5,//R4
+			5,5,5,5,5,//R5
+			4,7,4,7,4,//R6
+			8,16,16,8,8,//R7
+			9,17,9,17,9,//R8
+			10,17,17,17,17,//R9
+			5,13,13,13,5,//R10
+			12,18,18,12,18,//R11
+			12,12,12,12,12,//R12
+			14,15,15,15,14,//R13
+			4,7,4,7,4,//R14
+			15,15,15,15,15,//R15
+			16,16,16,16,16,//R16
+			14,15,15,15,14,//R17
+			18,18,18,18,18//18
     };
 
 	/**
