@@ -86,6 +86,9 @@ public class ChatBotDego
 		{
 			response = transformIWantStatement(statement);
 		}
+		else if(findKeyword(statement,"nothing") >= 0){
+			response = transformNothing(statement);
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -141,6 +144,10 @@ public class ChatBotDego
 	    if(statement.length() == 0){
 	        response = "Did you mean to press enter?";
         }
+        else if(findKeyword(statement, "quit") >= 0){
+        	game = false;
+        	return "Well what do you want to do now";
+		}
         else if(findKeyword(statement, "I want to", 0) >= 0) {
 			Scanner answer = new Scanner(System.in);
 			response = transformAction(statement);
@@ -166,7 +173,7 @@ public class ChatBotDego
 			else if (findKeyword(statement, "finish") >= 0) {
 				System.out.println(transformfinish(statement));
 				if (answer.nextLine().equals("yes")) {
-					response = obtainpotion(statement);
+					response = "Your final potion is named " + obtainpotion(statement) + "Pretty interesting aint it.";
 				for(int i = 0; i < potion.length; i++){
 						potion[i] = "";
 					}
@@ -251,6 +258,18 @@ public class ChatBotDego
 
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
+	}
+	private String transformNothing(String statement){
+		statement = statement.trim();
+		String lastChar = statement.substring(statement.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement.length() - 1);
+		}
+
+		int psn = findKeyword (statement, "nothing");
+		String restOfStatement = statement.substring(psn + 7).trim();
+		return "What do you mean " + restOfStatement + "!";
 	}
 
 
