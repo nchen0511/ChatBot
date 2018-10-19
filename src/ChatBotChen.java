@@ -212,10 +212,10 @@ public class ChatBotChen {
 		}
 
 		System.out.println("You arrive at the cave. It seems to be pretty peaceful, but regardless you still keep your guard up.");
-		if(!choice2.equals("none")) {
+		if(choice2.equals("none")) {
 			System.out.println("You enter the cave alone...");
 		} else {
-			System.out.println("You enter the cave with the " + choice2);
+			System.out.println("You enter the cave with the " + choice2 + ".");
 		}
 		System.out.println("You soon reach the end of the cave. The peasant's children are there, but they are being guarded by a giant pumpkin. You strike at the pumpkin, but it hardly left a scratch. Now the pumpkin is angry.");
 		while (true) {
@@ -249,12 +249,13 @@ public class ChatBotChen {
 			if(choice2.equals("none")){
 				System.out.println("You tried your best, but you could not outrun the giant pumpkin. You never reached the end of the cave.");
 			} else {
-				System.out.println("Escape seemed impossible, but the " + choice2 + " decided to stay behind and sacrifice themself. Thanks to them, you made it out alive.");
+				System.out.println("Escape seemed impossible, but the " + choice2 + " decided to stay behind to sacrifice themself. Thanks to them, you made it out alive. You returned home and enjoyed the rest of the Halloween...");
 			}
 		} else {
-			System.out.println("You strike the pumpkin with shady merchant's sword. Somehow, it worked and the pumpkin was defeated. You rescued the children and returned to the peasant");
+			System.out.println("You strike the pumpkin with shady merchant's sword. Somehow, it worked and the pumpkin was defeated. You rescued the children and returned to the peasant, obtaining your promised reward. You returned home and enjoyed the rest of the Halloween");
 		}
 		System.out.println("And that concludes your adventure.");
+		System.out.println("Welcome back, would you like to go on an \"adventure\" again or would you like to just \"talk\"?");
 	}
 
 	/**Resets the bot's patience after each scene
