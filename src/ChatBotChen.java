@@ -31,7 +31,7 @@ public class ChatBotChen {
 	 */
 	public void chatLoop(String statement) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Hello, welcome to the world of Alfheim. I, C Bot, will be your game master for this session.");
+		System.out.println("Hello, welcome to the world of Alfheim. I will guide you through your journey on this (eventful) day.");
 		System.out.println("Throughout this journey you may 𝐨𝐛𝐬𝐞𝐫𝐯𝐞 your surroundings or check your 𝐠𝐨𝐥𝐝 whenever you wish to.");
 
 		//scene 1
